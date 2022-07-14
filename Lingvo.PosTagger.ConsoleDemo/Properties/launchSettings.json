@@ -1,0 +1,24 @@
+{
+  "profiles": {
+    "predict": {
+      "commandName": "Project",
+      "commandLineArgs": "-ConfigFilePath predict.json",
+      "workingDirectory": ".\\"
+    },
+    "predict_pos": {
+      "commandName": "Project",
+      "commandLineArgs": "-ConfigFilePath predict_pos.json",
+      "workingDirectory": ".\\"
+    },
+    "predict_ner": {
+      "commandName": "Project",
+      "commandLineArgs": "-ConfigFilePath predict_ner.json",
+      "workingDirectory": ".\\"
+    },
+    "valid": {
+      "commandName": "Project",
+      "commandLineArgs": "-ConfigFilePath valid.json",
+      "workingDirectory": ".\\"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "CurrentDirectory": "..\\..\\[resources]",
+
+  "SentSplitterResourcesXmlFilename": "tokenizing\\sent-splitter-resources.xml",
+  "UrlDetectorResourcesXmlFilename" : "tokenizing\\url-detector-resources.xml",
+  "Log": {
+    "Enable"     : false,
+    "LogFileName": "log.txt"
+  },
+  "ModelInfos": {
+    "pos_ru__(mel=4) [custom]": {
+      "ModelFilePath"   : "models\\pos_tagger\\pos_tagger_ru__em256__(mel=4)__e6xm8__[custom].s2s",
+      "MaxEndingLength" : 4,
+      "RegimenModelType": "PosTagger"
+      //, "LoadImmediate"   : true
+    },
+    "pos_ru__(mel=4) [nerus_lenta.conllu]": {
+      "ModelFilePath"   : "models\\pos_tagger\\pos_tagger_ru__em256__(mel=4)__e6xm8__[nerus_lenta.conllu].s2s",
+      "MaxEndingLength" : 4,
+      "RegimenModelType": "PosTagger"
+    }
+    /*
+    ,"pos_ru__(mel=5) [nerus_lenta.conllu]": {
+      "ModelFilePath"   : "models\\pos_tagger\\pos_tagger_ru__em256__(mel=5)__e6xm8__[nerus_lenta.conllu].s2s",
+      "MaxEndingLength" : 5,
+      "RegimenModelType": "PosTagger"
+    }
+    //*/
+
+    ,
+    "ner_ru__(0.5M) [nerus_lenta.conllu]": {
+      "ModelFilePath"   : "models\\ner\\ner_ru__(0.5M)__em256__e6xm8.s2s",
+      "RegimenModelType": "Ner"
+    }
+    ,
+    "ner_ru__(0.7M) [nerus_lenta.conllu]": {
+      "ModelFilePath"   : "models\\ner\\ner_ru__(0.7M)__em256__e6xm8.s2s",
+      "RegimenModelType": "Ner"
+    }
+    ,
+    "ner_ru__(1.0M) [nerus_lenta.conllu]": {
+      "ModelFilePath"   : "models\\ner\\ner_ru__(1.0M)__em128__e6xm8.s2s",
+      "RegimenModelType": "Ner"
+    }
+    ,
+    "ner_ru__(2.0M) [nerus_lenta.conllu]": {
+      "ModelFilePath"   : "models\\ner\\ner_ru__(2.0M)__em128__e6xm8.s2s",
+      "RegimenModelType": "Ner"
+    }
+    ,
+    "ner_ru__(3.0M) [nerus_lenta.conllu]": {
+      "ModelFilePath"   : "models\\ner\\ner_ru__(3.0M)__em128__e6xm8.s2s",
+      "RegimenModelType": "Ner"
+    }
+    ,
+    "ner_ru__(4.0M) [nerus_lenta.conllu]": {
+      "ModelFilePath"   : "models\\ner\\ner_ru__(4.0M)__em128__e6xm8.s2s",
+      "RegimenModelType": "Ner"
+    }
+    ,
+    "ner_ru__(5.0M) [nerus_lenta.conllu]": {
+      "ModelFilePath"   : "models\\ner\\ner_ru__(5.0M)__em128__e6xm8.s2s",
+      "RegimenModelType": "Ner"
+    }
+    ,
+    "ner_ru__(7.5M) [nerus_lenta.conllu]": {
+      "ModelFilePath"   : "models\\ner\\ner_ru__(7.5M)__em64__e6xm8.s2s",
+      "RegimenModelType": "Ner"
+    }
+    ,
+    "ner_ru__(all) [nerus_lenta.conllu]": {
+      "ModelFilePath"   : "models\\ner\\ner_ru__(all)__em64__e6xm8.s2s",
+      "RegimenModelType": "Ner"
+    }
+  },
+
+  "MaxPredictSentLength": 220,
+  "ProcessorType"       : "CPU", //"GPU", //
+
+  "CONCURRENT_FACTORY_INSTANCE_COUNT": null
+}

@@ -1,0 +1,51 @@
+﻿.turn-button { height: 20px; line-height: 20px; display: inline-block; font-family: sans-serif; }
+    .turn-button label { height: inherit; display: block; }
+    .turn-button input[type=radio], .turn-button input[type=checkbox] { display: none; }
+    .turn-button i {
+        float: left; width: 55px;
+        height: 20px; margin-right: 5px; font-style: normal; position: relative; display: inline-block;
+        background-color: silver; cursor: pointer;
+    }
+    .turn-button[data-style=radio] i, .turn-button[data-style=check] i { width: 25px; }
+    .turn-button i:after, .turn-button i:before { content: ''; position: absolute; }
+    .turn-button i:before { top: 2px; left: 2px; z-index: 1; width: 21px; height: 16px; background: #eee; transition: all .2s ease-in-out 0s; }
+    .turn-button input:checked + label i { background: silver; }
+        .turn-button input:checked + label i:before { left: 32px; }
+    .turn-button[data-style=radio] i:before { background: #ddd; border: 2px solid transparent; }
+    .turn-button[data-style=radio] input:checked + label i:before { border-color: #fff; background: silver; left: 2px !important; }
+    .turn-button[data-style=check] i { background: #ddd; border: 2px solid #7f8c8d; border: 2px solid rgba(0,0,0,.2); }
+        .turn-button[data-style=check] i:after, .turn-button[data-style=check] i:before { width: 0; background: 0 0; border-right: 2px solid transparent; }
+        .turn-button[data-style=check] i:before { top: 10px; left: 7px; height: 6px; -webkit-transform: rotate(-45deg); -ms-transform: rotate(-45deg); transform: rotate(-45deg); }
+        .turn-button[data-style=check] i:after { top: 5px; padding: 0 !important; left: 12px !important; height: 12px !important; -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); transition: all .2s ease-in-out 0s; }
+    .turn-button[data-style=check] input:checked + label i:after, .turn-button[data-style=check] input:checked + label i:before { border-color: #fff; }
+    .turn-button[data-style=check] input:checked + label i:before { left: 7px; }
+    .turn-button[data-align=right] i { float: right; margin-right: 0; margin-left: 5px; }
+    .turn-button[data-text=true] i:after {
+        left: 22px; color: #eee; height: 20px; content: '\00a0 v1'; /* '\00a0 Off' */
+        padding: 0 4px; font-size: 14px; font-weight: 700; line-height: 20px;
+        /*text-transform: uppercase;*/
+        text-align: right; color: rgba(255,255,255,.8); transition: all .2s ease-in-out 0s;
+    }
+
+    .turn-button[data-text=true] input:checked + label i:after { left: 0; content: 'v2'; } /*'On'*/
+    .turn-button[data-style=radio] i:after, .turn-button[data-style=radio] input:checked + label i:after, .turn-button[data-style=check] i:after, .turn-button[data-style=check] input:checked + label i:after { content: ''; }
+    .turn-button[data-style=check] input:disabled + label i { background: #ddd; border-color: #ccc; }
+
+    .turn-button[data-radius=true] i { border-radius: 3px; }
+        .turn-button[data-radius=true] i:before { border-radius: inherit; }
+    .turn-button input:disabled + label { color: #888; cursor: not-allowed; }
+        .turn-button input:disabled + label i { background: #ccc; }
+            .turn-button input:disabled + label i:after { color: #ddd; }
+
+    .turn-button i[data-after-check]:after, .turn-button i[data-after-check]:before, .turn-button i[data-before-check]:after, .turn-button i[data-before-check]:before { border: none; }
+    .turn-button i[data-before-check]:before { color: #7f8c8d; font-size: 16px; line-height: 20px; text-align: center; -webkit-transform: rotate(0); -ms-transform: rotate(0); transform: rotate(0); font-family: FontAwesome; content: attr(data-before-check); }
+    .turn-button input:checked + label i[data-after-check]:before { color: #fff; background: rgba(0,0,0,.1); content: attr(data-after-check); }
+    .turn-button[data-style=check] input:checked + label i[data-after-check]:before { height: 100%; background: 0 0 !important; }
+    .turn-button[data-style=check] i[data-before-check]:before { width: inherit; height: inherit; line-height: 25px; top: -2px !important; left: -2px !important; }
+    .turn-button[data-color] input:disabled + label i:after { color: rgba(0,0,0,.3); }
+    .turn-button[data-color] i[data-before-check]:before { color: #fff; background: rgba(255,255,255,.2); }
+    /*
+    .turn-button[data-color=pos] i { background: silver; }
+    .turn-button[data-color=pos] input:checked + label i, .turn-button[data-style=radio][data-color=pos] input:checked + label i:before { background: rgb(243, 121, 40); }
+    .turn-button[data-color=pos] input:disabled + label i { background: whitesmoke; }
+    */

@@ -1,0 +1,13 @@
+{
+  //"ModelFilePath"           : "..\\..\\[resources]\\models\\+++\\ner_ru__(all)__em64__e6xm8.s2s.latest",
+  "ModelFilePath"           : "..\\..\\[resources]\\models\\ner\\ner_ru__(all)__em64__e6xm8.s2s",
+
+  //"ValidCorpusPath"         : "..\\..\\[resources]\\valid\\valid_ner_ru__(all).txt",
+  "ValidCorpusPath"         : "..\\..\\..\\..\\..\\[package's]\\Lingvo.PosTagger_and_NER\\RU\\valid\\valid_ner_ru__(all).txt",
+  "TooLongSequence"         : "Truncation", //"Ignore", //
+  "BatchSize"               : 10,
+  "MaxPredictSentLength"    : 220,
+  "TryRunValidateParallel"  : true,
+  "ProcessorType"           : "CPU", //"GPU", //
+  "CompilerOptions"         : "--use_fast_math --gpu-architecture=compute_60"
+}

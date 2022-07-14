@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>    
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>CUDA</DefineConstants>
+    <PlatformTarget>x64</PlatformTarget>
+    <nullable>disable</nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove=".gitignore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ManagedCuda-11" Version="11.4.47" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
+    <PackageReference Include="protobuf-net" Version="3.1.4" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Lingvo.PosTagger.Tensors\Lingvo.PosTagger.Tensors.csproj" />
+    <ProjectReference Include="..\Lingvo.PosTagger.Tensors.Cuda\Lingvo.PosTagger.Tensors.Cuda.csproj" />
+    <ProjectReference Include="..\Lingvo.PosTagger.Utils\Lingvo.PosTagger.Utils.csproj" />
+  </ItemGroup>
+</Project>

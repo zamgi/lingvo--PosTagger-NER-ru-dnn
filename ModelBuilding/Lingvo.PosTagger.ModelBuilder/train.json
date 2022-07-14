@@ -1,0 +1,41 @@
+{
+  "EmbeddingDim"       : 256, /*NOT_ENOUGH_MEMORY*/
+  "HiddenSize"         : 256, /*NOT_ENOUGH_MEMORY*/
+  "EncoderType"        : "Transformer",
+  "EncoderLayerDepth"  : 6,
+  "MultiHeadNum"       : 8,
+  "ModelFilePath"      : "..\\..\\[resources]\\models\\pos_tagger\\+\\pos_tagger_ru__em256__(mel=4)__e6xm8__[custom].s2s",
+  "SrcVocabSize"       : 500000,
+  "TgtVocabSize"       : 500000,
+  "SharedEmbeddings"   : false,
+  //"TrainCorpusPath"    : "..\\..\\[resources]\\train\\custom_corpus_1\\train_pos_tagger_ru__(mel=4).txt",
+  "TrainCorpusPath"    : "..\\..\\..\\..\\..\\[package's]\\Lingvo.PosTagger_and_NER\\RU\\train\\train_pos_tagger_ru__(mel=4).txt",
+  //"ValidCorpusPath"   : "..\\..\\[resources]\\valid\\custom_corpus_1\\valid_pos_tagger_ru__(mel=4).txt", /*NOT_ENOUGH_MEMORY*/
+  "ExternalValidator": {
+    "FileName"        : "..\\Lingvo.PosTagger.ExternalValidator\\bin\\Lingvo.PosTagger.ExternalValidator.exe",
+    "Arguments"       : "-ConfigFilePath \"..\\Lingvo.PosTagger.ExternalValidator\\valid.json\"",
+    "WorkingDirectory": "..\\Lingvo.PosTagger.ExternalValidator"
+  },
+  "TooLongSequence"        : "Truncation", //"Ignore", //
+  "StartLearningRate"      : 0.0006,
+  "WeightsUpdateCount"     : 0,
+  "GradClip"               : 5.0,
+  "BatchSize"              : 256, /*NOT_ENOUGH_MEMORY*/
+  //"ValBatchSize"           : 1, //128,
+  "DropoutRatio"           : 0,
+  "BeamSearchSize"         : 1,
+  "MaxEpochNum"            : 100,
+  "MaxTrainSentLength"     : 220, // /*NOT_ENOUGH_MEMORY*/
+  "WarmUpSteps"            : 8000,
+  "Beta1"                  : 0.9,
+  "Beta2"                  : 0.98,
+  //"ValidIntervalHours"     : 0.3,
+  "Valid_StartAfterUpdates": 20000,
+  "Valid_RunEveryUpdates"  : 10000,
+  "EnableCoverageModel"    : false,
+  "Optimizer"              : "Adam",
+  "ProcessorType"          : "CPU", //"GPU", //
+  "CompilerOptions"        : "--use_fast_math --gpu-architecture=compute_60"
+
+  , "DeviceIds": "0,1,2,3,4,5,6,7 ,8,9,10"
+}

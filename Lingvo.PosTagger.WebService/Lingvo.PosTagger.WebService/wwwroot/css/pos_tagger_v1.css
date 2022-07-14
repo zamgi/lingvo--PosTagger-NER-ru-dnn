@@ -1,0 +1,12 @@
+﻿span[label] { border: 1px dotted silver; font-weight: bold; }
+
+#processResult table th { padding: 1px 10px; border: 1px solid #aaa; color: silver; font-size: larger; background-color: lightslategrey; font-family: tahoma; font-weight: inherit; }
+    #processResult table th:nth-child(1), #processResult table td:nth-child(1) { text-align: right;/*white-space: nowrap;*/ } 
+    #processResult table th:nth-child(2), #processResult table td:nth-child(2) { text-align: left; /*white-space: nowrap;*/ }
+    #processResult table th:nth-child(1) { padding-right: 25px; }
+    #processResult table th:nth-child(2) { padding-left: 25px; }
+
+span.sent-number { color: silver; font-size: small; }
+    span.sent-number i { color: gray; }
+span.font-small { color: gray; font-size: smaller; }
+

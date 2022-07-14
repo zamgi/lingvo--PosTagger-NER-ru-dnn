@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
+    <!--<RetainVMGarbageCollection>true</RetainVMGarbageCollection>-->
+    <PlatformTarget>x64</PlatformTarget>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove=".gitignore" />
+    <None Remove="*.tmp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Common\PipeIPC.cs" Link="PipeIPC.cs" />
+    <Compile Include="..\..\Common\ReadInputOptions.cs" Link="ReadInputOptions.cs" />
+  </ItemGroup>
+ 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\PosTagger\Lingvo.PosTagger.Tokenizing\Lingvo.PosTagger.Tokenizing.csproj" />
+    <ProjectReference Include="..\..\PosTagger\Lingvo.PosTagger.Utils\Lingvo.PosTagger.Utils.csproj" />
+    <ProjectReference Include="..\..\PosTagger\Lingvo.PosTagger\Lingvo.PosTagger.csproj" />
+  </ItemGroup>
+
+</Project>

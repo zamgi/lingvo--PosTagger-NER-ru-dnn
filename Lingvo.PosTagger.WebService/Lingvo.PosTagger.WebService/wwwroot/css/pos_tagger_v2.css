@@ -1,0 +1,83 @@
+﻿span[label] { border: 1px dotted silver; font-weight: bold; border-radius: 2px;  }
+
+span.Noun:after { content: "Noun" }
+span.Verb:after { content: "Verb" }
+span.Predicate:after { content: "Predicate" }
+span.Infinitive:after { content: "Infinitive" }
+span.AdverbialParticiple:after { content: "AdverbialParticiple" }
+span.AuxiliaryVerb:after { content: "AuxiliaryVerb" }
+span.Participle:after { content: "Participle" }
+span.Pronoun:after { content: "Pronoun" }
+span.AdjectivePronoun:after { content: "AdjectivePronoun" }
+span.PossessivePronoun:after { content: "PossessivePronoun" }
+span.AdverbialPronoun:after { content: "AdverbialPronoun" }
+span.Numeral:after { content: "Numeral" }
+span.Adjective:after { content: "Adjective" }
+span.Adverb:after { content: "Adverb" }
+span.Preposition:after { content: "Preposition" }
+span.Conjunction:after { content: "Conjunction" }
+span.Interjection:after { content: "Interjection" }
+span.Particle:after { content: "Particle" }
+span.Article:after { content: "Article" }
+span.Punctuation:after { content: "Punctuation" }
+span.O:after, span.Other:after { content: "Other" }
+
+span.ADJ:after { content: "ADJ" }
+span.ADP:after { content: "ADP" }
+span.ADV:after { content: "ADV" }
+span.AUX:after { content: "AUX" }
+span.CCONJ:after { content: "CCONJ" }
+span.DET:after { content: "DET" }
+span.INTJ:after { content: "INTJ" }
+span.NOUN:after { content: "NOUN" }
+span.NUM:after { content: "NUM" }
+span.PART:after { content: "PART" }
+span.PRON:after { content: "PRON" }
+span.PROPN:after { content: "PROPN" }
+span.PUNCT:after { content: "PUNCT" }
+span.SCONJ:after { content: "SCONJ" }
+span.SYM:after { content: "SYM" }
+span.VERB:after { content: "VERB" }
+span.X:after { content: "X" }
+
+span.Noun:after,
+span.Verb:after,
+span.Predicate:after,
+span.Infinitive:after,
+span.AdverbialParticiple:after,
+span.AuxiliaryVerb:after,
+span.Participle:after,
+span.Pronoun:after,
+span.AdjectivePronoun:after,
+span.PossessivePronoun:after,
+span.AdverbialPronoun:after,
+span.Numeral:after,
+span.Adjective:after,
+span.Adverb:after,
+span.Preposition:after,
+span.Conjunction:after,
+span.Interjection:after,
+span.Particle:after,
+span.Article:after,
+span.Punctuation:after,
+span.O:after,
+span.Other:after,
+
+span.ADJ:after,
+span.ADP:after,
+span.ADV:after,
+span.AUX:after,
+span.CCONJ:after,
+span.DET:after,
+span.INTJ:after,
+span.NOUN:after,
+span.NUM:after,
+span.PART:after,
+span.PRON:after,
+span.PROPN:after,
+span.PUNCT:after,
+span.SCONJ:after,
+span.SYM:after,
+span.VERB:after,
+span.X:after
+    { margin: 0 2px; padding: 0 2px; background: white; font-size: 0.8em; border-radius: 4px; border: 1px solid silver; vertical-align: bottom; font-weight: 100; display: block; }

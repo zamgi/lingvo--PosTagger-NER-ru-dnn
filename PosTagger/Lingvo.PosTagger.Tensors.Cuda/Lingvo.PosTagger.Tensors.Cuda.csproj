@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>latest</LangVersion>    
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\</OutputPath>
+    <nullable>disable</nullable>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <None Remove=".gitignore" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="ManagedCuda-11" Version="11.4.47" />
+    <PackageReference Include="ManagedCuda-CUBLAS" Version="11.4.47" />
+    <PackageReference Include="ManagedCuda-CURAND" Version="11.4.47" />
+    <PackageReference Include="ManagedCuda-NVRTC" Version="11.4.47" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Lingvo.PosTagger.Tensors\Lingvo.PosTagger.Tensors.csproj" />
+    <ProjectReference Include="..\Lingvo.PosTagger.Utils\Lingvo.PosTagger.Utils.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "ExternalValidator / valid": {
+      "commandName": "Project",
+      "commandLineArgs": "-ConfigFilePath valid.json",
+      "workingDirectory": ".\\"
+    },
+    "ExternalValidator / valid_ner_ru__(all)__em64__e6xm8": {
+      "commandName": "Project",
+      "commandLineArgs": "-ConfigFilePath valid_ner_ru__(all)__em64__e6xm8.json",
+      "workingDirectory": ".\\"
+    }
+  }
+}

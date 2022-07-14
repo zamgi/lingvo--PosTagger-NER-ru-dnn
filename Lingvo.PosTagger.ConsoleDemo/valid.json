@@ -1,0 +1,19 @@
+{
+  "SentSplitterResourcesXmlFilename": "..\\[resources]\\tokenizing\\sent-splitter-resources.xml",
+  "UrlDetectorResourcesXmlFilename" : "..\\[resources]\\tokenizing\\url-detector-resources.xml",
+
+  "Validate_Mode"     :  "one_model__by_many_valid_files", /*_default, one_model__by_many_valid_files, all_moldels__by_one_valid_file*/
+  "ValidFilesRootPath":  "..\\..\\..\\..\\[package's]\\Lingvo.PosTagger_and_NER\\RU\\valid\\", // if ["Validate_Mode" == "one_model__by_many_valid_files"]
+  "ModelsRootPath"    :  "..\\[resources]\\models\\ner\\",                                     // if ["Validate_Mode" == "all_moldels__by_one_valid_file"]
+
+  "ModelFilePath"  : "..\\[resources]\\models\\ner\\ner_ru__(all)__em80__e6xm5.s2s",
+  //---"ModelFilePath"  : "..\\[resources]\\models\\ner\\ner_ru__(all)__em64__e6xm8.s2s",
+  "ValidCorpusPath": "..\\..\\..\\..\\[package's]\\Lingvo.PosTagger_and_NER\\RU\\train\\valid_ner_ru__(7.0M).txt", // if ["Validate_Mode" == "_default"]
+
+  //"ValidationOutputFileName": "valid_output_sents.txt",
+  "BatchSize"             : 4,
+  "MaxPredictSentLength"  : 220,
+  "TryRunValidateParallel": true,
+  "ProcessorType"         : "CPU"
+  //"ProcessorType" : "GPU", "CompilerOptions": "--use_fast_math --gpu-architecture=compute_60"
+}

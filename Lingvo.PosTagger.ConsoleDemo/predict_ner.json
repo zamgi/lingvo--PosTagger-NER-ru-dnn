@@ -1,0 +1,14 @@
+{
+  "SentSplitterResourcesXmlFilename": "..\\[resources]\\tokenizing\\sent-splitter-resources.xml",
+  "UrlDetectorResourcesXmlFilename" : "..\\[resources]\\tokenizing\\url-detector-resources.xml",
+  
+  //"ModelFilePath"  : "..\\[resources]\\models\\ner\\ner_ru__(all)__em64__e6xm8.s2s",
+  "ModelFilePath"  : "..\\[resources]\\models\\ner\\ner_ru__(all)__em80__e6xm5.s2s",
+  "MaxEndingLength": 10000,
+  
+  "InputTestFile"       : "..\\[resources]\\input-text\\input_pos_tagger_ru.txt",
+  "OutputTestFile"      : "output_ner_ru.txt",
+  "MaxPredictSentLength": 220,
+  "ProcessorType"       : "CPU", //"GPU", //
+  "CompilerOptions"     : "--use_fast_math --gpu-architecture=compute_60"
+}

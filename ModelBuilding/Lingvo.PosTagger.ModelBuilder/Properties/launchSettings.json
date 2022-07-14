@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "ModelBuilder / train": {
+      "commandName"     : "Project",
+      "commandLineArgs" : "-ConfigFilePath train.json",
+      "workingDirectory": ".\\"
+    },
+    "ModelBuilder / train_ner_ru__(all)__em64__e6xm8": {
+      "commandName"     : "Project",
+      "commandLineArgs" : "-ConfigFilePath train_ner_ru__(all)__em64__e6xm8.json",
+      "workingDirectory": ".\\"
+    }
+  }
+}

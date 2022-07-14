@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <OutputPath>bin\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <nullable>disable</nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DefineConstants>XLAT_CHARTYPE_MAP; XLAT_UPPER_INVARIANT_MAP; XLAT_WHITESPACE_CHARS</DefineConstants>
+  </PropertyGroup>  
+
+  <ItemGroup>
+    <None Remove=".gitignore" />
+  </ItemGroup>
+
+</Project>

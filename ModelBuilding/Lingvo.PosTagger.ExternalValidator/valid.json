@@ -1,0 +1,11 @@
+{  
+  "ModelFilePath"         : "..\\..\\[resources]\\models\\pos_tagger\\+\\pos_tagger_ru__em256__(mel=4)__e6xm8__[custom].s2s.latest",
+  "ValidCorpusPath"       : "..\\..\\[resources]\\valid\\custom_corpus_1\\valid_pos_tagger_ru__(mel=4).txt",
+  "TooLongSequence"       : "Truncation", //"Ignore", //
+  "MaxEndingLength"       : 4,
+  "BatchSize"             : 4,
+  "MaxPredictSentLength"     : 220,
+  "TryRunValidateParallel": true,
+  "ProcessorType"         : "CPU", //"GPU", //
+  "CompilerOptions"       : "--use_fast_math --gpu-architecture=compute_60"
+}

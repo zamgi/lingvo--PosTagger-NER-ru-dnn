@@ -1,0 +1,16 @@
+﻿div.even, tr.even { background-color: white; line-height: 1.7em; font-size: 14px; }
+div.uneven, div.odd, tr.uneven, tr.odd { background-color: cornsilk; line-height: 1.7em; font-size: 14px; }
+
+div.even   span, tr.even   span, 
+div.uneven span, tr.uneven span, 
+div.odd    span, tr.odd    span { /*display: inline-block; */vertical-align: top; }
+
+div.even table { border-spacing: 0px; }
+div.even table td { padding: 0px; }
+div.even table td.word, 
+tr.even        td.word { border: 1px solid silver; }
+div.uneven table, div.odd table { border-spacing: 0px; }
+div.uneven table td, div.odd table td, 
+tr.uneven        td, tr.odd        td { padding: 0px; }
+div.uneven table td.word, div.odd table td.word,
+tr.uneven        td.word, tr.odd        td.word { border: 1px solid silver; }

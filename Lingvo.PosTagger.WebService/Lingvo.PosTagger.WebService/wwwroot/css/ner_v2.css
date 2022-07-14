@@ -1,0 +1,37 @@
+﻿/*span.O[label], span.Other[label] { margin-left: inherit; border: inherit; font-weight: inherit; }
+span[label] { margin-left: 2px; border: 1px dotted silver; font-weight: bold; }*/
+
+span.B-PER, span.I-PER, span.PER, span.PERSON, span.PERSON__NNER,
+span.B-LOC, span.I-LOC, span.LOC, span.LOCATION, span.LOCATION__NNER,
+span.B-ORG, span.I-ORG, span.ORG, span.ORGANIZATION, span.ORGANIZATION__NNER,
+span.B-MISC, span.I-MISC, span.MISC, span.MISCELLANEOUS, span.MISCELLANEOUS__NNER { border: 1px dotted silver; border-radius: 2px; font-weight: bold;  }
+
+span.B-PER, span.I-PER, span.PER, span.PERSON, span.PERSON__NNER { color: rgb(167, 40, 40); background-color: #f1dbdf; }
+span.B-LOC, span.I-LOC, span.LOC, span.LOCATION, span.LOCATION__NNER { color: rgb(15, 138, 36); background-color: rgb(201 255 210); }
+span.B-ORG, span.I-ORG, span.ORG, span.ORGANIZATION, span.ORGANIZATION__NNER { color: rgb(0, 0, 192); background-color: rgb(202 202 255); }
+span.B-MISC, span.I-MISC, span.MISC, span.MISCELLANEOUS, span.MISCELLANEOUS__NNER { color: rgb(185, 69, 181); background-color: rgb(255 202 253); }
+
+span.B-PER:after, span.I-PER:after, span.PER:after, span.PERSON:after, span.PERSON__NNER:after,
+span.B-LOC:after, span.I-LOC:after, span.LOC:after, span.LOCATION:after, span.LOCATION__NNER:after,
+span.B-ORG:after, span.I-ORG:after, span.ORG:after, span.ORGANIZATION:after, span.ORGANIZATION__NNER:after,
+span.B-MISC:after, span.I-MISC:after, span.MISC:after, span.MISCELLANEOUS:after, span.MISCELLANEOUS__NNER:after 
+    { margin: 0 3px; padding: 0 2px; background: white; font-size: 0.8em; border-radius: 4px; border: 1px solid silver; vertical-align: bottom; }
+
+span.ACTIVE_NER_ENTITY.B-PER:after, span.ACTIVE_NER_ENTITY.I-PER:after, span.ACTIVE_NER_ENTITY.PER:after, span.ACTIVE_NER_ENTITY.PERSON:after, span.ACTIVE_NER_ENTITY.PERSON__NNER:after,
+span.ACTIVE_NER_ENTITY.B-LOC:after, span.ACTIVE_NER_ENTITY.I-LOC:after, span.ACTIVE_NER_ENTITY.LOC:after, span.ACTIVE_NER_ENTITY.LOCATION:after, span.ACTIVE_NER_ENTITY.LOCATION__NNER:after,
+span.ACTIVE_NER_ENTITY.B-ORG:after, span.ACTIVE_NER_ENTITY.I-ORG:after, span.ACTIVE_NER_ENTITY.ORG:after, span.ACTIVE_NER_ENTITY.ORGANIZATION:after, span.ACTIVE_NER_ENTITY.ORGANIZATION__NNER:after,
+span.ACTIVE_NER_ENTITY.B-MISC:after, span.ACTIVE_NER_ENTITY.I-MISC:after, span.ACTIVE_NER_ENTITY.MISC:after, span.ACTIVE_NER_ENTITY.MISCELLANEOUS:after, span.ACTIVE_NER_ENTITY.MISCELLANEOUS__NNER:after 
+    { border: 1px solid black !important; }
+
+span.B-PER:after { content: "B-PER";  }
+span.I-PER:after { content: "I-PER";  }
+span.PER:after, span.PERSON:after, span.PERSON__NNER:after { content: "PER";  }
+span.B-LOC:after { content: "B-LOC";  }
+span.I-LOC:after { content: "I-LOC";  }
+span.LOC:after, span.LOCATION:after, span.LOCATION__NNER:after { content: "LOC";  }
+span.B-ORG:after { content: "B-ORG";  }
+span.I-ORG:after { content: "I-ORG";  }
+span.ORG:after, span.ORGANIZATION:after, span.ORGANIZATION__NNER:after { content: "ORG";  }
+span.B-MISC:after { content: "B-MISC";  }
+span.I-MISC:after { content: "I-MISC";  }
+span.MISC:after, span.MISCELLANEOUS:after, span.MISCELLANEOUS__NNER:after { content: "MISC";  }

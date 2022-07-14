@@ -1,0 +1,30 @@
+﻿span.Noun, span.NOUN, span.PROPN { color: maroon; }
+span.Verb, span.Predicate, span.Infinitive, span.AdverbialParticiple, span.AuxiliaryVerb, span.Participle, span.VERB, span.AUX { color: green; }
+span.Pronoun, span.AdjectivePronoun, span.PossessivePronoun, span.AdverbialPronoun, span.PRON, span.DET { color: blue; }
+span.Numeral, span.NUM { color: #FF9900; }
+span.Adjective, span.ADJ { color: #990099; }
+span.Adverb, span.ADV { color: #009999; }
+span.Preposition, span.ADP { color: #996633; }
+span.Conjunction, span.CCONJ, span.SCONJ { color: #336666; }
+span.Interjection, span.INTJ { color: #003333; }
+span.Particle, span.PART { color: #663366; }
+span.Article, span.SYM { color: #CC66CC; }
+span.Punctuation, span.O, span.Other, span.PUNCT, span.X { color: gray; }
+
+/*------------------------------------------------------------------------*/
+div.even, tr.even { background-color: white; line-height: 1.4em; font-size: 14px; }
+div.uneven, div.odd, tr.uneven, tr.odd { background-color: cornsilk; line-height: 1.4em; font-size: 14px; }
+
+div.even   span, tr.even   span, 
+div.uneven span, tr.uneven span, 
+div.odd    span, tr.odd    span { display: inline-block; vertical-align: top; }
+
+div.even table { border-spacing: 0px; }
+div.even table td { padding: 0px; }
+div.even table td.word, 
+tr.even        td.word { border: 1px solid silver; }
+div.uneven table, div.odd table { border-spacing: 0px; }
+div.uneven table td, div.odd table td, 
+tr.uneven        td, tr.odd        td { padding: 0px; }
+div.uneven table td.word, div.odd table td.word,
+tr.uneven        td.word, tr.odd        td.word { border: 1px solid silver; }

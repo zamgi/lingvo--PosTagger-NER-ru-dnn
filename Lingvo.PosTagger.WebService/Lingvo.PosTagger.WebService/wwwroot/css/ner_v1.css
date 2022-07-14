@@ -1,0 +1,22 @@
+﻿/*span.O[label], span.Other[label] { margin-left: inherit; border: inherit; font-weight: inherit; }
+span[label] { margin-left: 2px; border: 1px dotted silver; font-weight: bold; }*/
+
+span.B-PER, span.I-PER, span.PER, span.PERSON, span.PERSON__NNER,
+span.B-LOC, span.I-LOC, span.LOC, span.LOCATION, span.LOCATION__NNER,
+span.B-ORG, span.I-ORG, span.ORG, span.ORGANIZATION, span.ORGANIZATION__NNER,
+span.B-MISC, span.I-MISC, span.MISC, span.MISCELLANEOUS, span.MISCELLANEOUS__NNER { border: 1px dotted silver; border-radius: 2px; font-weight: bold;  }
+
+span.B-PER, span.I-PER, span.PER, span.PERSON, span.PERSON__NNER { color: rgb(167, 40, 40); }
+span.B-LOC, span.I-LOC, span.LOC, span.LOCATION, span.LOCATION__NNER { color: rgb(15, 138, 36); }
+span.B-ORG, span.I-ORG, span.ORG, span.ORGANIZATION, span.ORGANIZATION__NNER { color: rgb(0, 0, 192); }
+span.B-MISC, span.I-MISC, span.MISC, span.MISCELLANEOUS, span.MISCELLANEOUS__NNER { color: rgb(185, 69, 181); }
+
+#processResult table th { padding: 1px 10px; border: 1px solid #aaa; color: silver; font-size: larger; background-color: lightslategrey; font-family: tahoma; font-weight: inherit; }
+    #processResult table th:nth-child(1), #processResult table td:nth-child(1) { text-align: right;/*white-space: nowrap;*/ width: 50%; } 
+    #processResult table th:nth-child(2), #processResult table td:nth-child(2) { text-align: left; /*white-space: nowrap;*/ width: 50%; }
+    #processResult table th:nth-child(1) { padding-right: 25px; }
+    #processResult table th:nth-child(2) { padding-left: 25px; }
+
+span.sent-number { color: silver; font-size: small; }
+    span.sent-number i { color: gray; }
+span.font-small { color: gray; font-size: smaller; }

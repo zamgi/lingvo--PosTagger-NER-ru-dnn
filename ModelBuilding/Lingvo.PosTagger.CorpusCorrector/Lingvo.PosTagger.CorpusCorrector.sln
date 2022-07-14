@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lingvo.PosTagger.CorpusCorrector", "Lingvo.PosTagger.CorpusCorrector.csproj", "{B17925B5-A6B6-41D2-BD16-D9CF4D6A7907}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lingvo.PosTagger.Tokenizing", "..\PosTagger\Lingvo.PosTagger.Tokenizing\Lingvo.PosTagger.Tokenizing.csproj", "{4972B176-2B73-4795-A8E5-592517F50492}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B17925B5-A6B6-41D2-BD16-D9CF4D6A7907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B17925B5-A6B6-41D2-BD16-D9CF4D6A7907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B17925B5-A6B6-41D2-BD16-D9CF4D6A7907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B17925B5-A6B6-41D2-BD16-D9CF4D6A7907}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4972B176-2B73-4795-A8E5-592517F50492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4972B176-2B73-4795-A8E5-592517F50492}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4972B176-2B73-4795-A8E5-592517F50492}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4972B176-2B73-4795-A8E5-592517F50492}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1F63B523-0569-4AC8-99ED-F34BBFF54E79}
+	EndGlobalSection
+EndGlobal
