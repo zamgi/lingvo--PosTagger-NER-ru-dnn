@@ -27,17 +27,19 @@ namespace Lingvo.PosTagger.Network
 
         public WeightTensor Perform( WeightTensor input, int batchSize, ComputeGraphTensor graph )
         {
-            using ComputeGraphTensor g = graph.CreateSubGraph( $"{_Name}_PositionwiseFeedForward" );
-            var inputNorm = _LayerNorm2.Norm( input, g );
+            using ( var g = graph.CreateSubGraph( $"{_Name}_PositionwiseFeedForward" ) )
+            {
+                var norm = _LayerNorm2.Norm( g, input );
 
-            //Feed forward
-            WeightTensor ffnResult = _FeedForwardLayer1.Process( inputNorm, batchSize, g );
-            WeightTensor reluFFNResult = g.Relu( ffnResult, inPlace: true );
-            WeightTensor ffn2Result = _FeedForwardLayer2.Process( reluFFNResult, batchSize, g );
+                //Feed forward
+                WeightTensor ffnResult     = _FeedForwardLayer1.Process( g, norm, batchSize );
+                WeightTensor reluFFNResult = g.Relu( ffnResult, inPlace: true );
+                WeightTensor ffn2Result    = _FeedForwardLayer2.Process( g, reluFFNResult, batchSize );
 
-            //Skip connection and layer normaliztion
-            WeightTensor addFFNResult = graph.Add( ffn2Result, input, inPlace: true );
-            return (addFFNResult);
+                //Skip connection and layer normaliztion
+                WeightTensor addFFNResult = graph.Add( ffn2Result, input, inPlace: true );
+                return (addFFNResult);
+            }
         }
 
         public List< WeightTensor > GetParams()

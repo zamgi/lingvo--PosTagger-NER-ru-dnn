@@ -5,6 +5,6 @@
     /// </summary>
     internal interface IFeedForwardLayer : INeuralUnit
     {
-        WeightTensor Process( WeightTensor inputT, int batchSize, ComputeGraphTensor g, float alpha = 1.0f );
+        WeightTensor Process( ComputeGraphTensor g, WeightTensor inputT, int batchSize, float alpha = 1.0f );
     }
 }

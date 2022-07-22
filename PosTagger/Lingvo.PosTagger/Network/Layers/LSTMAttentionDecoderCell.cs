@@ -52,7 +52,7 @@ namespace Lingvo.PosTagger.Network
 
                 WeightTensor hxhc   = computeGraph.Concate( 1, input, hidden_prev, context );
                 WeightTensor hhSum  = computeGraph.Affine( hxhc, _Wxhc, _B );
-                WeightTensor hhSum2 = _LayerNorm1.Norm( hhSum, computeGraph );
+                WeightTensor hhSum2 = _LayerNorm1.Norm( computeGraph, hhSum );
 
                 (WeightTensor gates_raw, WeightTensor cell_write_raw) = computeGraph.SplitColumns( hhSum2, _HiddenDim * 3, _HiddenDim );
                 WeightTensor gates      = computeGraph.Sigmoid( gates_raw );
@@ -62,7 +62,7 @@ namespace Lingvo.PosTagger.Network
 
                 // compute new cell activation: ct = forget_gate * cell_prev + input_gate * cell_write
                 Cell = g.EltMulMulAdd( forget_gate, cell_prev, input_gate, cell_write );
-                WeightTensor ct2 = _LayerNorm2.Norm( Cell, computeGraph );
+                WeightTensor ct2 = _LayerNorm2.Norm( computeGraph, Cell );
 
                 Hidden = g.EltMul( output_gate, computeGraph.Tanh( ct2 ) );
 

@@ -60,14 +60,14 @@ namespace Lingvo.PosTagger.Network
         public int GetDeviceId() => _DeviceId;
         public void Reset( WeightTensorFactory weightFactory, int batchSize ) { }
 
-        public WeightTensor Encode( WeightTensor inputs, int batchSize, ComputeGraphTensor g, WeightTensor srcSelfMask )
+        public WeightTensor Encode( WeightTensor input, int batchSize, ComputeGraphTensor g, WeightTensor srcSelfMask )
         {
             using ( ComputeGraphTensor subg = g.CreateSubGraph( $"{_Name}_Encoder" ) )
             {
                 WeightTensor maskTensor = null;
                 if ( srcSelfMask != null )
                 {
-                    int seqLen = inputs.Rows / batchSize;
+                    int seqLen = input.Rows / batchSize;
                     using var keyMaskView = subg.View( srcSelfMask, dims: new long[] { batchSize, 1, seqLen, seqLen } );
                     maskTensor = subg.Expand( keyMaskView, dims: new long[] { batchSize, _MultiHeadNum, seqLen, seqLen } );
                 }
@@ -75,16 +75,17 @@ namespace Lingvo.PosTagger.Network
                 WeightTensor attnProbs = null;
                 for ( int k = 0; k < _Encoders.Count; k++ )
                 {
-                    (inputs, attnProbs) = _Encoders[ k ].Perform( inputs, maskTensor, batchSize, subg, outputAttenWeights: false );
-                    inputs = _PosFFNs[ k ].Perform( inputs, batchSize, subg );
+                    (input, attnProbs) = _Encoders[ k ].Perform( input, maskTensor, batchSize, subg, outputAttenWeights: false );
+                    input = _PosFFNs[ k ].Perform( input, batchSize, subg );
                 }
-                inputs = _LayerNorm.Norm( inputs, subg );
+                input = _LayerNorm.Norm( subg, input );
 
-                inputs.UnbindFromComputeGraph();
+                input.UnbindFromComputeGraph();
+
                 attnProbs?.UnbindFromComputeGraph();
                 maskTensor?.Dispose();
             }
-            return (inputs);
+            return (input);
         }
 
         public INeuralUnit CloneToDeviceAt( int deviceId ) => new TransformerEncoder( _Name, _MultiHeadNum, _HiddenDim, _InputDim, _Depth, _DropoutRatio, deviceId, _IsTrainable, learningRateFactor: _LearningRateFactor );

@@ -35,7 +35,7 @@ namespace Lingvo.PosTagger.Network
             set => Sizes[ 1 ] = value;
         }
 
-        public string Name { get; set; }
+        public string Name { get; /*set;*/ }
         public bool IsTrainable { get; set; }
         public bool NeedGradient { get; set; }
         public int DeviceId { get; set; }
@@ -195,13 +195,7 @@ namespace Lingvo.PosTagger.Network
             TWeight = tensor;
         }
 
-        public void UnbindFromComputeGraph()
-        {
-            if ( _ComputeGraphToBind != null )
-            {
-                _ComputeGraphToBind.Unbind( this );
-            }
-        }
+        public void UnbindFromComputeGraph() => _ComputeGraphToBind?.Unbind( this );
         public int GetDeviceId() => DeviceId;
         public INeuralUnit CloneToDeviceAt( int deviceId ) => new WeightTensor( Sizes, deviceId, Name, IsTrainable, normType: _NormType, fanIn: _FanIn, fanOut: _FanOut, needGradient: NeedGradient );
 

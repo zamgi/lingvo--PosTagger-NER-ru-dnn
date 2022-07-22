@@ -79,24 +79,17 @@ namespace Lingvo.PosTagger.Network
         public void Dispose()
         {
             // We only dispose root computing graph, For sub graph, we don't do it.
-            if ( !_IsSubGraph )
-            {
-                if ( _BackProp != null )
-                {
-                    _BackProp.Clear();
-                }
-
-                if ( _WeightTensorFactory != null )
-                {
-                    _WeightTensorFactory.Dispose();
-                }
-            }
-            else
+            if ( _IsSubGraph )
             {
                 foreach ( WeightTensor wt in _TensorsBindToCurrentGraph )
                 {
                     wt.ReleaseWeight();
                 }
+            }
+            else
+            {
+                _BackProp?.Clear();
+                _WeightTensorFactory?.Dispose();
             }
 
             _TensorsBindToCurrentGraph.Clear();
@@ -165,6 +158,8 @@ namespace Lingvo.PosTagger.Network
                     wt.Dispose();
                 };
                 _BackProp.Add( backward );
+
+                wt.UnbindFromComputeGraph();
             }
 
             return (wt);
@@ -225,7 +220,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor AddTanh( WeightTensor w1, WeightTensor w2, WeightTensor w3 )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( w1.Sizes, _DeviceId, name: $"{GetHashString( w1.Name, w2.Name, w3.Name )}.AddTanh", graphToBind: this, needGradient: (w1.NeedGradient || w2.NeedGradient || w3.NeedGradient) );
@@ -259,7 +253,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Mul( WeightTensor w, float v, bool inPlace = false )
         {
             WeightTensor wt;
@@ -301,8 +294,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
-
         public WeightTensor Div( WeightTensor w, float v, bool inPlace = false )
         {            
             WeightTensor wt;
@@ -392,7 +383,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor EltMul( WeightTensor w1, WeightTensor w2 )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( w1.Sizes, _DeviceId, name: $"{GetHashString( w1.Name, w2.Name )}.EltMul", graphToBind: this, needGradient: (w1.NeedGradient || w2.NeedGradient) );
@@ -423,7 +413,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Add( WeightTensor w1, WeightTensor w2, bool inPlace = false )
         {
             WeightTensor wt;
@@ -474,7 +463,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Sum( WeightTensor w, int dim )
         {
             var newSizes = w.Sizes.ToArray();
@@ -500,7 +488,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Log( WeightTensor w )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( w.Sizes, _DeviceId, name: $"{GetHashString( w.Name )}.Log", graphToBind: this, needGradient: w.NeedGradient );
@@ -524,7 +511,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Add( WeightTensor w, float v )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( w.Sizes, _DeviceId, name: $"{GetHashString( w.Name )}.AddTV", graphToBind: this, needGradient: w.NeedGradient );
@@ -556,7 +542,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Sub( float v, WeightTensor w )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( w.Sizes, _DeviceId, name: $"{GetHashString( w.Name )}.SubVT", graphToBind: this, needGradient: w.NeedGradient );
@@ -581,7 +566,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Tanh( WeightTensor w )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( w.Sizes, _DeviceId, name: $"{GetHashString( w.Name )}.Tanh", graphToBind: this, needGradient: w.NeedGradient );
@@ -600,11 +584,12 @@ namespace Lingvo.PosTagger.Network
                     wt.Dispose();
                 };
                 _BackProp.Add( backward );
+
+                wt.UnbindFromComputeGraph();
             }
 
             return (wt);
         }
-
         public WeightTensor Relu( WeightTensor w, bool inPlace = false )
         {
             WeightTensor wt;
@@ -646,7 +631,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor MulBatch( WeightTensor w1, WeightTensor w2, float alpha = 1.0f )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( new long[] { w1.TWeight.Sizes[ 0 ], w1.TWeight.Sizes[ 1 ], w2.TWeight.Sizes[ 2 ] }, _DeviceId, name: $"{GetHashString( w1.Name, w2.Name )}.MulBatch", graphToBind: this, needGradient: (w1.NeedGradient || w2.NeedGradient) );
@@ -679,7 +663,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Mul( WeightTensor w1, WeightTensor w2, float alpha = 1.0f )
         {
             int n = w1.Rows;
@@ -716,26 +699,21 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Affine( WeightTensor m1, WeightTensor m2, WeightTensor mbias, float alpha = 1.0f )
         {
             if ( m1 == null ) throw (new ArgumentNullException( $"m1 tensor is null" ));
             if ( m2 == null ) throw (new ArgumentNullException( $"m2 tensor is null" ));
             if ( mbias == null ) throw (new ArgumentNullException( $"mbias tensor is null" ));
 
-            WeightTensor t1 = m1;
-            WeightTensor t2 = m2;
-            WeightTensor t3 = mbias;
-
-            int n = t1.Rows;
-            int d = t2.Columns;
-            WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( n, d, _DeviceId, name: $"{GetHashString( m1.Name, m2.Name, mbias.Name )}.Affine", graphToBind: this, needGradient: (t1.NeedGradient || t2.NeedGradient || t3.NeedGradient) );
+            int n = m1.Rows;
+            int d = m2.Columns;
+            WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( n, d, _DeviceId, name: $"{GetHashString( m1.Name, m2.Name, mbias.Name )}.Affine", graphToBind: this, needGradient: (m1.NeedGradient || m2.NeedGradient || mbias.NeedGradient) );
 #if USE_VISUALIZE_NETWORK
             VisualizeNodes( new WeightTensor[] { m1, m2, mbias }, wt );
 #endif
-            using ( var t3WExp = t3.TWeight.Expand( n, d ) )
+            using ( var t3WExp = mbias.TWeight.Expand( n, d ) )
             {
-                Ops.Addmm( wt.TWeight, 1.0f, t3WExp, alpha, t1.TWeight, t2.TWeight );
+                Ops.Addmm( wt.TWeight, 1.0f, t3WExp, alpha, m1.TWeight, m2.TWeight );
             }
 
             if ( _NeedsBackProp )
@@ -743,32 +721,31 @@ namespace Lingvo.PosTagger.Network
                 void backward()
                 {
                     wt.ReleaseWeight();
-                    if ( t3.NeedGradient )
+                    if ( mbias.NeedGradient )
                     {
-                        using Tensor t3G = t3.TGradient.Expand( n, d );
+                        using Tensor t3G = mbias.TGradient.Expand( n, d );
                         Ops.Add( t3G, t3G, wt.TGradient );
                     }
-                    if ( t2.NeedGradient )
+                    if ( m2.NeedGradient )
                     {
-                        using Tensor tW2 = t2.TWeight.Transpose();
-                        Ops.Addmm( t1.TGradient, 1.0f, t1.TGradient, alpha, wt.TGradient, tW2 );
+                        using Tensor tW2 = m2.TWeight.Transpose();
+                        Ops.Addmm( m1.TGradient, 1.0f, m1.TGradient, alpha, wt.TGradient, tW2 );
                     }
-                    if ( t1.NeedGradient )
+                    if ( m1.NeedGradient )
                     {
-                        using Tensor tW1 = t1.TWeight.Transpose();
-                        Ops.Addmm( t2.TGradient, 1.0f, t2.TGradient, alpha, tW1, wt.TGradient );
+                        using Tensor tW1 = m1.TWeight.Transpose();
+                        Ops.Addmm( m2.TGradient, 1.0f, m2.TGradient, alpha, tW1, wt.TGradient );
                     }
                     wt.Dispose();
                 };
                 _BackProp.Add( backward );
 
-                t1.UnbindFromComputeGraph();
-                t2.UnbindFromComputeGraph();
+                m1.UnbindFromComputeGraph();
+                m2.UnbindFromComputeGraph();
             }
 
             return (wt);
         }
-
         public WeightTensor Transpose( WeightTensor w, int dim1, int dim2 )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( w.Sizes, _DeviceId, name: $"{GetHashString( w.Name )}.Transpose", graphToBind: this, needGradient: w.NeedGradient );
@@ -801,7 +778,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Transpose( WeightTensor w )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( w.Columns, w.Rows, _DeviceId, name: $"{GetHashString( w.Name )}.Transpose", graphToBind: this, needGradient: w.NeedGradient );
@@ -835,7 +811,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Argmax( WeightTensor w, int dim )
         {
             Tensor argMaxT = Ops.Argmax( null, w.TWeight, dim );
@@ -850,14 +825,13 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
+        
         private static double PowerA( double a, double b )
         {
             int tmp  = (int) (BitConverter.DoubleToInt64Bits( a ) >> 32);
             int tmp2 = (int) (b * (tmp - 1072632447) + 1072632447);
             return BitConverter.Int64BitsToDouble( ((long) tmp2) << 32 );
         }
-
         private static double Exp( double x )
         {
             var tmp = (long) (1512775 * x + 1072632447);
@@ -993,7 +967,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Max( WeightTensor w, int dim )
         {
             Tensor argMaxT = Ops.Max( null, w.TWeight, dim );
@@ -1008,7 +981,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Softmax( WeightTensor w, bool inPlace, bool runGradients = true )
         {
             WeightTensor wt;
@@ -1045,7 +1017,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Peek( WeightTensor w, int dim, int ix, int num = 1 )
         {
             long[] sizes = w.Sizes.ToArray();
@@ -1065,7 +1036,7 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
+        
         private string GetHashString( params string[] inputStrings )
         {
             //if (_VisualizeNetwork)
@@ -1111,7 +1082,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Concate( int dim, params WeightTensor[] wl ) => Concate( wl.ToList(), dim );
         public WeightTensor Concate( List< WeightTensor > wl, int dim )
         {
@@ -1183,7 +1153,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor TransposeBatch( WeightTensor w, int batchSize )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( w.Sizes, _DeviceId, name: $"{GetHashString( w.Name )}.TransposeBatch", graphToBind: this, needGradient: w.NeedGradient );
@@ -1217,60 +1186,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
-        public List<WeightTensor> SplitColumns2( WeightTensor w, params int[] sizes )
-        {
-            var resList = new List<WeightTensor>();
-
-            int x = 0;
-            foreach ( int size in sizes )
-            {
-                WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( w.Rows, size, _DeviceId, name: $"{GetHashString( w.Name )}.SplitColumn", graphToBind: this, needGradient: w.NeedGradient );
-#if USE_VISUALIZE_NETWORK
-                VisualizeNodes( w, wt );
-#endif
-                wt.TWeight = w.TWeight.Narrow( 1, x, size );
-                resList.Add( wt );
-
-                x += size;
-            }
-
-            if ( _NeedsBackProp )
-            {
-                void backward()
-                {
-                    if ( w.NeedGradient )
-                    {
-                        x = 0;
-                        int i = 0;
-                        foreach ( WeightTensor item in resList )
-                        {
-                            WeightTensor item_i = item;
-                            using ( Tensor mG = w.TGradient.Narrow( 1, x, sizes[ i ] ) )
-                            {
-                                Ops.Add( mG, mG, item_i.TGradient );
-                            }
-
-                            item.Dispose();
-
-                            x += sizes[ i ];
-                            i++;
-                        }
-                    }
-                    else
-                    {
-                        foreach ( WeightTensor item in resList )
-                        {
-                            item.Dispose();
-                        }
-                    }
-                };
-                _BackProp.Add( backward );
-            }
-
-            return (resList);
-        }
-
         public WeightTensor AsContiguous( WeightTensor w, bool shareTensor = true )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( w.Sizes, _DeviceId, name: $"{GetHashString( w.Name )}.AsContiguous", graphToBind: this, needGradient: w.NeedGradient );
@@ -1308,7 +1223,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor View( WeightTensor w, params long[] dims )
         {
             var hasNegOne = false;
@@ -1375,7 +1289,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Scatter( WeightTensor src, WeightTensor indices, int dim, params long[] shape )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( shape, _DeviceId, name: $"{GetHashString( src.Name + indices.Name )}.Scatter", graphToBind: this, needGradient: src.NeedGradient );
@@ -1400,7 +1313,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor ScatterAdd( WeightTensor src, WeightTensor indices, int dim, params long[] shape )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( shape, _DeviceId, name: $"{GetHashString( src.Name + indices.Name )}.Scatter", graphToBind: this, needGradient: src.NeedGradient );
@@ -1425,7 +1337,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Scatter( WeightTensor indices, float val, int dim, bool needGradient = true, params long[] shape )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( shape, _DeviceId, name: $"{GetHashString( indices.Name )}.Scatter", graphToBind: this, needGradient: needGradient );
@@ -1448,7 +1359,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Expand( WeightTensor w, params long[] dims )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( dims, _DeviceId, name: $"{GetHashString( w.Name )}.Expand", graphToBind: this, needGradient: w.NeedGradient );
@@ -1476,16 +1386,120 @@ namespace Lingvo.PosTagger.Network
             return (wt);
         }
 
-        public (WeightTensor r1, WeightTensor r2) SplitColumns( WeightTensor w, int size1, int size2 )
+        public (WeightTensor r1, WeightTensor r2) SplitColumns( WeightTensor w, int size_1, int size_2 )
         {
-            List<WeightTensor> res = SplitColumns2( w, size1, size2 );
-            return (res[ 0 ], res[ 1 ]);
-        }
+            //List<WeightTensor> res = SplitColumns2( w, size_1, size_2 );
+            //return (res[ 0 ], res[ 1 ]);
 
-        public (WeightTensor r1, WeightTensor r2, WeightTensor r3) SplitColumns( WeightTensor w, int size1, int size2, int size3 )
+            var x = 0;
+
+            WeightTensor wt_1 = _WeightTensorFactory.CreateWeightTensor( w.Rows, size_1, _DeviceId, name: $"{GetHashString( w.Name )}.SplitColumn", graphToBind: this, needGradient: w.NeedGradient );
+#if USE_VISUALIZE_NETWORK
+            VisualizeNodes( w, wt_1 );
+#endif
+            wt_1.TWeight = w.TWeight.Narrow( 1, x, size_1 );
+            x += size_1;
+
+
+            WeightTensor wt_2 = _WeightTensorFactory.CreateWeightTensor( w.Rows, size_2, _DeviceId, name: $"{GetHashString( w.Name )}.SplitColumn", graphToBind: this, needGradient: w.NeedGradient );
+#if USE_VISUALIZE_NETWORK
+            VisualizeNodes( w, wt_2 );
+#endif
+            wt_2.TWeight = w.TWeight.Narrow( 1, x, size_2 );
+            x += size_2;
+
+
+            if ( _NeedsBackProp )
+            {
+                void backward()
+                {
+                    if ( w.NeedGradient )
+                    {
+                        x = 0;
+                        using ( Tensor mG = w.TGradient.Narrow( 1, x, size_1 ) )
+                        {
+                            Ops.Add( mG, mG, wt_1.TGradient );
+                        }
+                        wt_1.Dispose();
+
+                        x += size_1;
+                        using ( Tensor mG = w.TGradient.Narrow( 1, x, size_2 ) )
+                        {
+                            Ops.Add( mG, mG, wt_2.TGradient );
+                        }
+                        wt_2.Dispose();
+                    }
+                    else
+                    {
+                        wt_1.Dispose();
+                        wt_2.Dispose();
+                    }
+                };
+                _BackProp.Add( backward );
+
+                wt_1.UnbindFromComputeGraph();
+                wt_2.UnbindFromComputeGraph();
+            }
+
+            return (wt_1, wt_2);
+        }
+        public (WeightTensor r1, WeightTensor r2, WeightTensor r3) SplitColumns( WeightTensor w, int size_1, int size_2, int size_3 )
         {
-            List<WeightTensor> res = SplitColumns2( w, size1, size2, size3 );
+            List<WeightTensor> res = SplitColumns2( w, size_1, size_2, size_3 );
             return (res[ 0 ], res[ 1 ], res[ 2 ]);
+        }
+        private List<WeightTensor> SplitColumns2( WeightTensor w, params int[] sizes )
+        {
+            var lst = new List<WeightTensor>( sizes.Length );
+
+            var x = 0;
+            foreach ( int size in sizes )
+            {
+                WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( w.Rows, size, _DeviceId, name: $"{GetHashString( w.Name )}.SplitColumn", graphToBind: this, needGradient: w.NeedGradient );
+#if USE_VISUALIZE_NETWORK
+                VisualizeNodes( w, wt );
+#endif
+                wt.TWeight = w.TWeight.Narrow( 1, x, size );
+                lst.Add( wt );
+
+                x += size;
+            }
+
+            if ( _NeedsBackProp )
+            {
+                void backward()
+                {
+                    if ( w.NeedGradient )
+                    {
+                        x = 0;
+                        var i = 0;
+                        foreach ( WeightTensor m in lst )
+                        {
+                            using ( Tensor mG = w.TGradient.Narrow( 1, x, sizes[ i ] ) )
+                            {
+                                Ops.Add( mG, mG, m.TGradient );
+                            }
+
+                            m.Dispose();
+
+                            x += sizes[ i ];
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        foreach ( WeightTensor m in lst )
+                        {
+                            m.Dispose();
+                        }
+                    }
+                };
+                _BackProp.Add( backward );
+
+                lst.ForEach( m => m.UnbindFromComputeGraph() );
+            }
+
+            return (lst);
         }
 
         private Tensor BuildRandomTensor( int rows, int columns, int batchSize, float prob )
@@ -1503,7 +1517,6 @@ namespace Lingvo.PosTagger.Network
                 return noise.RepeatTensor( batchSize, 1 );
             }
         }
-
         public WeightTensor LayerNorm( WeightTensor src, WeightTensor alpha, WeightTensor beta, float eps = 1e-9f )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( src.Sizes, _DeviceId, name: $"{GetHashString( src.Name, alpha.Name, beta.Name )}.LayerNorm", graphToBind: this, needGradient: src.NeedGradient );
@@ -1523,6 +1536,9 @@ namespace Lingvo.PosTagger.Network
                 };
                 _BackProp.Add( backward );
 
+                //-= ?!?! =-//
+                wt.UnbindFromComputeGraph();
+
                 src.UnbindFromComputeGraph();
                 alpha.UnbindFromComputeGraph();
                 beta.UnbindFromComputeGraph();
@@ -1530,7 +1546,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Dropout( WeightTensor w, int batchSize, float drop_prob, bool inPlace = false )
         {
             if ( drop_prob == 0 || !_NeedsBackProp )
@@ -1576,7 +1591,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Gather( WeightTensor src, WeightTensor indices, int dim )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( indices.Sizes, _DeviceId, name: $"Gather_{_DeviceId}", graphToBind: this, needGradient: src.NeedGradient );
@@ -1598,7 +1612,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor Select( WeightTensor src, int dim, int index )
         {
             var resTWeight = src.TWeight.Select( dim, index );
@@ -1650,7 +1663,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor CreateTokensTensor( List<List<int>> input )
         {
             var buf = new float[ input.Count * input[ 0 ].Count ];
@@ -1702,7 +1714,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor BuildPadSelfMask( int paddedLength, float[] originalLengths )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( new long[] { originalLengths.Length, paddedLength, paddedLength }, _DeviceId, name: $"SelfMask_{_DeviceId}", graphToBind: this, needGradient: false );
@@ -1720,7 +1731,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor BuildSelfTriMask( int paddedLength, float[] originalLengths )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( new long[] { originalLengths.Length, paddedLength, paddedLength }, _DeviceId, name: $"SelfTriMask_{_DeviceId}", graphToBind: this, needGradient: false );
@@ -1738,7 +1748,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor BuildTriMask( int paddedLength, int batchSize )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( new long[] { paddedLength, paddedLength }, _DeviceId, name: $"SelfTriMask2_{_DeviceId}", graphToBind: this, needGradient: false );
@@ -1752,7 +1761,6 @@ namespace Lingvo.PosTagger.Network
 
             return (wt);
         }
-
         public WeightTensor BuildSrcTgtMask( int srcPaddedLength, int tgtPaddedLength, float[] tgtOriginalLengths, float[] srcOriginalLengths )
         {
             WeightTensor wt = _WeightTensorFactory.CreateWeightTensor( new long[] { tgtOriginalLengths.Length, tgtPaddedLength, srcPaddedLength }, _DeviceId, name: $"SrcTgtMask_{_DeviceId}", graphToBind: this, needGradient: false );

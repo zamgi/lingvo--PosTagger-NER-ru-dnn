@@ -88,7 +88,7 @@ namespace Lingvo.PosTagger.Applications
         public string CompilerOptions = "--use_fast_math";
 
 
-        [Arg(nameof(EncoderType), "Encoder type: LSTM, BiLSTM, Transformer. (Default = Transformer).")]
+        [Arg(nameof(EncoderType), "Encoder type: BiLSTM, Transformer. (Default = Transformer).")]
         public EncoderTypeEnums EncoderType = EncoderTypeEnums.Transformer;
 
         [Arg(nameof(HiddenSize), "The hidden layer size of encoder and decoder. (Default = 128).")]

@@ -78,7 +78,7 @@ namespace Lingvo.PosTagger.Network
             using ComputeGraphTensor g = graph.CreateSubGraph( $"{_Name}_MultiHeadAttention" );
             int seqLenQ = inputQ.Rows / batchSize;
 
-            WeightTensor inputQNorm = _LayerNormQ.Norm( inputQ, g );
+            WeightTensor inputQNorm = _LayerNormQ.Norm( g, inputQ );
 
             //Input projections
             var weightedQKV = g.View( g.Affine( inputQNorm, _QKV, _QKVb ), dims: new long[] { batchSize, seqLenQ, 3, _MultiHeadNum, _D } );
@@ -145,7 +145,7 @@ namespace Lingvo.PosTagger.Network
             int seqLenK = inputK.Rows / batchSize;
             int seqLenV = inputV.Rows / batchSize;
 
-            WeightTensor inputQNorm = _LayerNormQ.Norm( inputQ, g );
+            WeightTensor inputQNorm = _LayerNormQ.Norm( g, inputQ );
 
             //Input projections
             WeightTensor allQ = g.View( g.Affine( inputQNorm, _Q, _Qb ), dims: new long[] { batchSize, seqLenQ, _MultiHeadNum, _D } );

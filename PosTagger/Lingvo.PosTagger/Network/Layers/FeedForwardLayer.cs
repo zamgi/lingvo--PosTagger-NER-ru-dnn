@@ -34,7 +34,7 @@ namespace Lingvo.PosTagger.Network
         }
 
         public int GetDeviceId() => _DeviceId;
-        public WeightTensor Process( WeightTensor input, int batchSize, ComputeGraphTensor g, float alpha = 1.0f )
+        public WeightTensor Process( ComputeGraphTensor g, WeightTensor input, int batchSize, float alpha = 1.0f )
         {
             WeightTensor res = g.Affine( input, _Whd, _Bd, alpha );
             var output = g.Dropout( res, batchSize, _DropoutRatio, inPlace: true );

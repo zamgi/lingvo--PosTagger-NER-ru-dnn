@@ -123,7 +123,7 @@ namespace Lingvo.PosTagger
 
             // Encoding input source sentences
             WeightTensor encOutput = Encoder.Run( g/*, corpusBatch*/, encoder, _Model.EncoderType, srcEmbedding, posEmbedding/*, null*/, srcTokensList, originalSrcLengths );
-            WeightTensor ffLayer   = decoderFFLayer.Process( encOutput, batchSize, g );
+            WeightTensor ffLayer   = decoderFFLayer.Process( g, encOutput, batchSize );
 
             float cost = 0.0f;
             var output_2 = default(List< NetworkResult.ClassesInfo >);            

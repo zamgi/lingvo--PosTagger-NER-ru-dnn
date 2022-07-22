@@ -9,7 +9,7 @@
         Transformer
     }
     /// <summary>
-    /// 
+    /// NOT USED
     /// </summary>
     public enum DecoderTypeEnums
     {

@@ -45,7 +45,7 @@ namespace Lingvo.PosTagger.Network
 
                 WeightTensor inputs = innerGraph.Concate( 1, input, hidden_prev );
                 WeightTensor hhSum  = innerGraph.Affine( inputs, _Wxh, _B );
-                WeightTensor hhSum2 = _LayerNorm1.Norm( hhSum, innerGraph );
+                WeightTensor hhSum2 = _LayerNorm1.Norm( innerGraph, hhSum );
 
                 (WeightTensor gates_raw, WeightTensor cell_write_raw) = innerGraph.SplitColumns( hhSum2, _Hdim * 3, _Hdim );
                 WeightTensor gates      = innerGraph.Sigmoid( gates_raw );
@@ -55,7 +55,7 @@ namespace Lingvo.PosTagger.Network
 
                 // compute new cell activation: ct = forget_gate * cell_prev + input_gate * cell_write
                 _Cell = g.EltMulMulAdd( forget_gate, cell_prev, input_gate, cell_write );
-                WeightTensor ct2 = _LayerNorm2.Norm( _Cell, innerGraph );
+                WeightTensor ct2 = _LayerNorm2.Norm( innerGraph, _Cell );
 
                 // compute hidden state as gated, saturated cell activations
                 _Hidden = g.EltMul( output_gate, innerGraph.Tanh( ct2 ) );

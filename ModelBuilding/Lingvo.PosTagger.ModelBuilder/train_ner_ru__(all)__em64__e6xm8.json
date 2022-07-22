@@ -1,7 +1,7 @@
 {
   "EmbeddingDim"       : 64, //128, /*NOT_ENOUGH_MEMORY*/
   "HiddenSize"         : 64, //128, /*NOT_ENOUGH_MEMORY*/
-  "EncoderType"        : "Transformer",
+  "EncoderType"        : "BiLSTM", //"Transformer",
   "EncoderLayerDepth"  : 6,
   "MultiHeadNum"       : 8,
   //"ModelFilePath"      : "..\\..\\[resources]\\models\\+++\\ner_ru__(all)__em64__e6xm8.s2s",

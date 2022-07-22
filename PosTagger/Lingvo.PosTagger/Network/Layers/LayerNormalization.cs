@@ -18,7 +18,7 @@ namespace Lingvo.PosTagger.Network
             _Beta  = new WeightTensor( new long[ 2 ] { 1, dim },    0, deviceId, name: $"{name}.m_beta" , isTrainable, learningRateFactor );
         }
 
-        public WeightTensor Norm( WeightTensor input, ComputeGraphTensor g ) => g.LayerNorm( input, _Alpha, _Beta, 1e-06f );
+        public WeightTensor Norm( ComputeGraphTensor g, WeightTensor input ) => g.LayerNorm( input, _Alpha, _Beta, 1e-06f );
 
         public List< WeightTensor > GetParams() => new List< WeightTensor > { _Alpha, _Beta };
         public void Save( Model model )
