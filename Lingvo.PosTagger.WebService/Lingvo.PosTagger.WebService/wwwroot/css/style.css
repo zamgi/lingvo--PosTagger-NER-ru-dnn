@@ -74,3 +74,5 @@ label[disabled] { color: silver; }
 ::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); -webkit-border-radius: 3px; border-radius: 3px;}
 ::-webkit-scrollbar-thumb { -webkit-border-radius: 3px; border-radius: 3px; background: #ccc; -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); }
 ::-webkit-scrollbar-thumb:window-inactive { background: #eee; }
+
+.copy-right { position: fixed; bottom: 10px; right: 10px; color: silver; }

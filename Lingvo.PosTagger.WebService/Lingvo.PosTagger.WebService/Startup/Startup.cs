@@ -1,18 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Server;
-using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
+#if DEBUG
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.InteropServices;
+
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Hosting.Server.Features;
+#endif
 
 namespace Lingvo.PosTagger.WebService
 {
@@ -63,13 +65,15 @@ namespace Lingvo.PosTagger.WebService
             app.UseCors( CORS_DEFAULT );
 
             app.UseEndpoints( endpoints => endpoints.MapControllers() );
-
-            //---OpenBrowserIfRunAsConsole( app );
+#if DEBUG
+            //-------------------------------------------------------------//
+            OpenBrowserIfRunAsConsole( app );
+#endif
         }
 
+#if DEBUG
         private static void OpenBrowserIfRunAsConsole( IApplicationBuilder app )
-        {
-            //-------------------------------------------------------------//
+        {            
             #region [.open browser if run as console.]
             if ( !WindowsServiceHelpers.IsWindowsService() ) //IsRunAsConsole
             {
@@ -121,6 +125,7 @@ namespace Lingvo.PosTagger.WebService
                 return (false);
             }            
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -140,6 +145,7 @@ namespace Lingvo.PosTagger.WebService
 		        Inherit  = 0x80000000u,
 		        NoHeaps  = 0x40000000u
 	        }
+
             /// <summary>
             /// 
             /// </summary>
@@ -160,10 +166,10 @@ namespace Lingvo.PosTagger.WebService
 		        internal string szExeFile;
 	        }
 
-	        [DllImport("kernel32", SetLastError=true)] private static extern IntPtr CreateToolhelp32Snapshot( SnapshotFlags dwFlags, uint th32ProcessID );
-            [DllImport("kernel32", CharSet=CharSet.Auto, SetLastError=true)] private static extern bool Process32First( [In] IntPtr hSnapshot, ref PROCESSENTRY32 lppe );
-            [DllImport("kernel32", CharSet=CharSet.Auto, SetLastError=true)] private static extern bool Process32Next( [In] IntPtr hSnapshot, ref PROCESSENTRY32 lppe );
-            [DllImport("kernel32", SetLastError=true)][return: MarshalAs(UnmanagedType.Bool)] private static extern bool CloseHandle( [In] IntPtr hObject );
+	        [DllImport("kernel32.dll", SetLastError=true)] private static extern IntPtr CreateToolhelp32Snapshot( SnapshotFlags dwFlags, uint th32ProcessID );
+            [DllImport("kernel32.dll", CharSet=CharSet.Auto, SetLastError=true)] private static extern bool Process32First( [In] IntPtr hSnapshot, ref PROCESSENTRY32 lppe );
+            [DllImport("kernel32.dll", CharSet=CharSet.Auto, SetLastError=true)] private static extern bool Process32Next( [In] IntPtr hSnapshot, ref PROCESSENTRY32 lppe );
+            [DllImport("kernel32.dll", SetLastError=true)][return: MarshalAs(UnmanagedType.Bool)] private static extern bool CloseHandle( [In] IntPtr hObject );
 
             public static Process GetParentProcess()
 	        {
@@ -200,5 +206,6 @@ namespace Lingvo.PosTagger.WebService
                 return (null);
             }
         }
+#endif
     }
 }

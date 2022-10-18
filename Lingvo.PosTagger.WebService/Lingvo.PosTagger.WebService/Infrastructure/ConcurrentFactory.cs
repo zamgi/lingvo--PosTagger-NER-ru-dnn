@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -176,7 +175,7 @@ namespace Lingvo.PosTagger.WebService
                         {
                             var input_words  = input_sents[ 0 ];
                             var input_tokens = input_words.Select( w => Tokenizer.ToPosTaggerToken( w, mt.MaxEndingLength ) ).ToList( input_words.Count );
-                            var output_words = p.Predict( input_tokens );
+                            var output_words = p.Predict_LabelTokens( input_tokens );
 
                             var res = CreateResultTuples( input_words, output_words, text );
                             return (new List< (IList< ResultVM.TupleVM > result, Exception error) > { (res, default) }, default);
@@ -196,7 +195,7 @@ namespace Lingvo.PosTagger.WebService
                             try
                             {
                                 var input_tokens = input_words.Select( w => Tokenizer.ToPosTaggerToken( w, mt.MaxEndingLength ) ).ToList( input_words.Count );
-                                var output_words = p.Predict( input_tokens );
+                                var output_words = p.Predict_LabelTokens( input_tokens );
 
                                 var res = CreateResultTuples( input_words, output_words, text );
 

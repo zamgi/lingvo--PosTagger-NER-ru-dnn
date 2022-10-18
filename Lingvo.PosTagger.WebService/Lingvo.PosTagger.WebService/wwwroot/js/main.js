@@ -15,10 +15,10 @@ $(document).ready(function () {
             enabled_pos  = ch ? pos_v1 : pos_v2,
             disabled_ner = ch ? ner_v2 : ner_v1,
             enabled_ner  = ch ? ner_v1 : ner_v2;
-        var $disabled_pos_ss = $(document.styleSheets).filter(function (_, ss) { return (ss.href.toLowerCase().indexOf(disabled_pos) !== -1); }),
-            $enabled_pos_ss  = $(document.styleSheets).filter(function (_, ss) { return (ss.href.toLowerCase().indexOf(enabled_pos ) !== -1); }),
-            $disabled_ner_ss = $(document.styleSheets).filter(function (_, ss) { return (ss.href.toLowerCase().indexOf(disabled_ner) !== -1); }),
-            $enabled_ner_ss  = $(document.styleSheets).filter(function (_, ss) { return (ss.href.toLowerCase().indexOf(enabled_ner ) !== -1); });
+        var $disabled_pos_ss = $(document.styleSheets).filter(function (_, ss) { return ss.href && (ss.href.toLowerCase().indexOf(disabled_pos) !== -1); }),
+            $enabled_pos_ss  = $(document.styleSheets).filter(function (_, ss) { return ss.href && (ss.href.toLowerCase().indexOf(enabled_pos ) !== -1); }),
+            $disabled_ner_ss = $(document.styleSheets).filter(function (_, ss) { return ss.href && (ss.href.toLowerCase().indexOf(disabled_ner) !== -1); }),
+            $enabled_ner_ss  = $(document.styleSheets).filter(function (_, ss) { return ss.href && (ss.href.toLowerCase().indexOf(enabled_ner ) !== -1); });
         if ($disabled_pos_ss.length) $disabled_pos_ss[0].disabled = true;
         if ($enabled_pos_ss .length) $enabled_pos_ss [0].disabled = false;
         if ($disabled_ner_ss.length) $disabled_ner_ss[0].disabled = true;
@@ -49,7 +49,7 @@ $(document).ready(function () {
     })();
     $('#resetText2Default').click(function () { $('#text').val(''); setTimeout(function () { $('#text').val(DEFAULT_TEXT).focus(); }, 100); });
 
-    $('#mainPageContent').on('click', '#processButton', function () {
+    $('#processButton').click(function () {
         if ($(this).hasClass('disabled')) return (false);
 
         var text = getText($('#text'));

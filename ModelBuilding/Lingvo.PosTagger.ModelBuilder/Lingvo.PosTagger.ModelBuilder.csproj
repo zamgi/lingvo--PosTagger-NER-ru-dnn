@@ -1,19 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>    
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <OutputPath>bin\</OutputPath>
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+    <LangVersion>latest</LangVersion>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <PropertyGroup>
     <ServerGarbageCollection>true</ServerGarbageCollection>
     <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
     <!--<RetainVMGarbageCollection>true</RetainVMGarbageCollection>-->
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>    
+  </PropertyGroup>
+
+  <PropertyGroup>
     <PlatformTarget>x64</PlatformTarget>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>    
+    <OutputPath>bin\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,6 +41,4 @@
     <ProjectReference Include="..\..\PosTagger\Lingvo.PosTagger\Lingvo.PosTagger.csproj" />
   </ItemGroup>
   
-  <ProjectExtensions><VisualStudio><UserProperties train_3ner_3ru_3_3_x0028_all_x0029__3_3em64_3_3e6xm8_1json__JsonSchema="https://docs.gradle.com/enterprise/admin/schema/gradle-enterprise-config-schema-4.json" /></VisualStudio></ProjectExtensions>
-
 </Project>

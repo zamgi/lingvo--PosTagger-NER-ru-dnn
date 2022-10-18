@@ -69,17 +69,20 @@ namespace Lingvo.PosTagger
             Logger.WriteLine( $"Creating encoders and decoders..." );
             var deviceIds_Array = new RoundArray< int >( DeviceIds );
 
-            int contextDim;
-            (_Encoder, contextDim) = Encoder.CreateEncoders( model, _Options, deviceIds_Array );
-            _FFLayer = new MultiProcessorNetworkWrapper< FeedForwardLayer >( new FeedForwardLayer( "FeedForward", contextDim, model.TgtVocab.Count, dropoutRatio: 0.0f, deviceId: deviceIds_Array.GetNextItem(), isTrainable: true ), DeviceIds );
+            var t = Encoder.CreateEncoders( model, _Options, deviceIds_Array );            
+            var ffLayerWt = new FeedForwardLayer( "FeedForward", t.contextDim, model.TgtVocab.Count, dropoutRatio: 0.0f, deviceId: deviceIds_Array.GetNextItem(), isTrainable: true );
+            _FFLayer = new MultiProcessorNetworkWrapper< FeedForwardLayer >( ffLayerWt, DeviceIds );
+            _Encoder = t.encoder;
 
-            _SrcEmbedding = new MultiProcessorNetworkWrapper< WeightTensor >( new WeightTensor( new long[ 2 ] { model.SrcVocab.Count, model.EncoderEmbeddingDim }, deviceIds_Array.GetNextItem(), normType: NormType.Uniform, name: "SrcEmbeddings", isTrainable: true ), DeviceIds );
+            var srcEmbeddingWt = new WeightTensor( new long[ 2 ] { model.SrcVocab.Count, model.EncoderEmbeddingDim }, deviceIds_Array.GetNextItem(), normType: NormType.Uniform, name: "SrcEmbeddings", isTrainable: true );
+            _SrcEmbedding = new MultiProcessorNetworkWrapper< WeightTensor >( srcEmbeddingWt, DeviceIds );
 
             if ( model.EncoderType == EncoderTypeEnums.Transformer )
             {
                 var row    = maxSentLength + 2;
                 var column = model.EncoderEmbeddingDim;
-                _PosEmbedding = new MultiProcessorNetworkWrapper<WeightTensor>( PositionEmbedding.BuildPositionWeightTensor( row, column, deviceIds_Array.GetNextItem(), "PosEmbedding", false ), DeviceIds, true );
+                var posEmbeddingWt = PositionEmbedding.BuildPositionWeightTensor( row, column, deviceIds_Array.GetNextItem(), "PosEmbedding", isTrainable: false );
+                _PosEmbedding = new MultiProcessorNetworkWrapper< WeightTensor >( posEmbeddingWt, DeviceIds, isStaticWeights: true );
             }
             else
             {

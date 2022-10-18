@@ -1343,5 +1343,14 @@ namespace Lingvo.PosTagger.Tokenizing
             return (new_token);
         }
         //*/
+
+        [M(O.AggressiveInlining)] public static string GetOriginalValue( word_t w, string originalText )
+        {
+            if ( w.posTaggerInputType == PosTaggerInputType.Num )
+            {
+                return (originalText.Substring( w.startIndex, w.length ));
+            }
+            return (w.valueOriginal);
+        }
     }
 }

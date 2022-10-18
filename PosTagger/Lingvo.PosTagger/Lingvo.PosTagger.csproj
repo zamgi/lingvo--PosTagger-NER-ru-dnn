@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <OutputType>Library</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>    
+    <TargetFramework>net6.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>    
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>bin\</OutputPath>
     <DefineConstants>CUDA</DefineConstants>
     <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\</OutputPath>
     <nullable>disable</nullable>
   </PropertyGroup>
 
@@ -22,7 +22,7 @@
   <ItemGroup>
     <PackageReference Include="ManagedCuda-11" Version="11.4.47" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
-    <PackageReference Include="protobuf-net" Version="3.1.4" />
+    <PackageReference Include="protobuf-net" Version="3.1.22" />
   </ItemGroup>
   
   <ItemGroup>

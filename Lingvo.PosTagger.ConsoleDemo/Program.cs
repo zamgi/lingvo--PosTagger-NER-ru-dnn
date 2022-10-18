@@ -179,7 +179,7 @@ namespace Lingvo.PosTagger.ConsoleDemo
 
                 var maxEndingLength = ((0 < opts.MaxEndingLength) ? opts.MaxEndingLength : int.MaxValue);
                 var input_words = words.Select( w => Tokenizer.ToPosTaggerToken( w, maxEndingLength ) ).ToList();
-                var (output_words, clsInfo) = predictor.Predict_2( input_words );
+                var (output_words, clsInfo) = predictor.Predict( input_words );
 
                 Debug.WriteLine( $"WordsInDictRatio: {clsInfo.WordsInDictRatio}" );
                 foreach ( var wc in clsInfo.WordClasses )
@@ -259,7 +259,7 @@ namespace Lingvo.PosTagger.ConsoleDemo
                 if ( words.Count <= 0 ) return (tokenizer);
                 
                 var input_words = words.Select( w => Tokenizer.ToPosTaggerToken( w, maxEndingLength ) ).ToList(); //---var input_words  = words.Select( w => w.valueOriginal ).ToList();
-                var (output_words, clsInfo) = predictor.Predict_2( input_words );
+                var (output_words, clsInfo) = predictor.Predict( input_words );
 
                 Debug.WriteLine( $"WordsInDictRatio: {clsInfo.WordsInDictRatio}" );
                 foreach ( var wc in clsInfo.WordClasses )
@@ -276,17 +276,19 @@ namespace Lingvo.PosTagger.ConsoleDemo
 
                     if ( output_words.Count == input_words.Count )
                     {
+                        string get_word_value( int i ) => /*input_words[ i ]*/ Tokenizer.GetOriginalValue( words[ i ], line );
+
                         Span< int > max_lens = stackalloc int[ output_words.Count ];
 
                         var len = output_words.Count - 1;
                         for ( var i = 0; i <= len; i++ )
                         {
-                            max_lens[ i ] = Math.Max( input_words[ i ].Length, output_words[ i ].Length ) + 1;
+                            max_lens[ i ] = Math.Max( get_word_value( i ).Length, output_words[ i ].Length ) + 1;
                         }
 
                         for ( var i = 0; i <= len; i++ )
                         {
-                            var s = input_words[ i ].PadRight( max_lens[ i ] );
+                            var s = get_word_value( i ).PadRight( max_lens[ i ] );
                             sw.Write( s ); Console.Write( s );
                         }
                         sw.WriteLine(); Console.WriteLine();
@@ -302,7 +304,8 @@ namespace Lingvo.PosTagger.ConsoleDemo
                     }
                     else
                     {
-                        sw.WriteLine( string.Join( " ", input_words  ) ); Console.WriteLine( string.Join( " ", input_words  ) );
+                        var word_values = /*input_words*/words.Select( w => w.valueOriginal );
+                        sw.WriteLine( string.Join( " ", word_values ) ); Console.WriteLine( string.Join( " ", word_values ) );
                         sw.WriteLine( string.Join( " ", output_words ) ); Console.WriteLine( string.Join( " ", output_words ) );
                     }
                     sw.WriteLine(); Console.WriteLine();
