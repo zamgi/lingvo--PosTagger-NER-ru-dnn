@@ -205,7 +205,7 @@ namespace Lingvo.PosTagger.Text
         }
         private (string srcShuffledFilePath, string tgtShuffledFilePath) ShuffleAll( bool showTokenDist )
         {
-            var title = Console.Title;
+            var title = Misc.Console_Title();
 
             #region [.showTokenDist.]
             var dictSrcLenDist = showTokenDist ? new SortedDictionary< int, int >() : null;
@@ -280,14 +280,14 @@ namespace Lingvo.PosTagger.Text
                     if ( (sentNum % 10_000) == 0 )
                     {
                         if ( _Ct.IsCancellationRequested ) return (srcShuffledFilePath, tgtShuffledFilePath); //break;
-                        Console.Title = $"shuffle sents: {sentNum:#,#}...";
+                        Misc.Console_Title( $"shuffle sents: {sentNum:#,#}..." );
                     }
                 }
             }
 
-            Console.Title = $"shuffle sents: {_OffsetMap.Count:#,#}...";
+            Misc.Console_Title( $"shuffle sents: {_OffsetMap.Count:#,#}..." );
             Logger.WriteLine( $"Shuffled '{_OffsetMap.Count:#,#}' sentence pairs{((0 < tooLongSrcSntCnt + tooLongTgtSntCnt) ? $" (total-sent-count: {(_OffsetMap.Count + tooLongSrcSntCnt + tooLongTgtSntCnt):#,#})" : null)}." );
-            Console.Title = title;
+            Misc.Console_Title( title );
 
             if ( 0 < tooLongSrcSntCnt ) Logger.WriteWarnLine( $"Found {tooLongSrcSntCnt} source sentences are longer than '{_MaxSrcSentLength}' tokens, ignore them." );
             if ( 0 < tooLongTgtSntCnt ) Logger.WriteWarnLine( $"Found {tooLongTgtSntCnt} target sentences are longer than '{_MaxTgtSentLength}' tokens, ignore them." );
@@ -450,7 +450,7 @@ namespace Lingvo.PosTagger.Text
         }
         unsafe private static (string srcFilePath, string tgtFilePath, List< offset_t > offsetMap) ConvertTrainFile2SeqLabelFormat( string filePath, bool uniqueTempFileNames, CancellationToken ct = default )
         {
-            var title = Console.Title;
+            var title = Misc.Console_Title();
             Logger.WriteLine( $"Start convert sequence labeling corpus file '{filePath}' to parallel corpus format to temp-files." );
 
             var separator = new char[] { ' ', '\t' };
@@ -534,7 +534,7 @@ namespace Lingvo.PosTagger.Text
                             if ( (++sentCount % 10_000) == 0 )
                             {
                                 if ( ct.IsCancellationRequested ) break;
-                                Console.Title = $"read sents: {sentCount:#,#}...";
+                                Misc.Console_Title( $"read sents: {sentCount:#,#}..." );
                             }
 
                             write_currSent();
@@ -555,11 +555,11 @@ namespace Lingvo.PosTagger.Text
                 {
                     write_currSent();
                 }
-                Console.Title = $"read sents: {sentCount:#,#}...";
+                Misc.Console_Title( $"read sents: {sentCount:#,#}..." );
             }
 
             Logger.WriteLine( $"End convert sequence labeling corpus file '{filePath}' to parallel corpus format to temp-files (sents-count: {sentCount:#,#})." );
-            Console.Title = title;
+            Misc.Console_Title( title );
 
             return (srcFilePath, tgtFilePath, offsetMap);
         }

@@ -53,7 +53,7 @@ namespace Lingvo.PosTagger.WebServiceTestApp
 
             if ( print2ConsoleTitle )
             {
-                Console.Title = $"start search files ('{string.Join( "', '", file_extensions )}') by paths: '{string.Join( "', '", paths )}'...";
+                Extensions.Console_Title( $"start search files ('{string.Join( "', '", file_extensions )}') by paths: '{string.Join( "', '", paths )}'..." );
             }
 
             var eo = new EnumerationOptions()
@@ -76,7 +76,7 @@ namespace Lingvo.PosTagger.WebServiceTestApp
 
                 if ( print2ConsoleTitle && (((++n % 5_000) == 0) || (1_500 <= sw.ElapsedMilliseconds)) )
                 {
-                    Console.Title = fileName;
+                    Extensions.Console_Title( fileName );
                     sw.Restart();
                 }
                 var fi = new FileInfo( fileName );
@@ -116,7 +116,7 @@ namespace Lingvo.PosTagger.WebServiceTestApp
 
                 var result = await client.Run( text, ct ).CAX();
 
-                Console.Title = $"processed files: {Interlocked.Increment( ref fileNumber )} of {filesCount}...";
+                Extensions.Console_Title( $"processed files: {Interlocked.Increment( ref fileNumber )} of {filesCount}..." );
                 var cnt = result.Sents?.Sum( snt => snt.Tuples.Count );
                 Console.WriteLine( $"processed '{fileName}' => PosTagger: {cnt.GetValueOrDefault()}" );
 
@@ -124,7 +124,7 @@ namespace Lingvo.PosTagger.WebServiceTestApp
             })
             .CAX();
 
-            Console.Title = $"total processed files: {fileNumber}, (elapsed: {sw.Elapsed()}).";
+            Extensions.Console_Title( $"total processed files: {fileNumber}, (elapsed: {sw.Elapsed()})." );
         }
         private static bool TryReadAllText( string fileName, out string text )
         {
@@ -179,5 +179,18 @@ namespace Lingvo.PosTagger.WebServiceTestApp
         }
         public static bool StartsWith_Ex( this string s1, string s2 ) => s1.StartsWith( s2, StringComparison.InvariantCultureIgnoreCase );
         public static bool EndsWith_Ex( this string s1, string s2 ) => s1.EndsWith( s2, StringComparison.InvariantCultureIgnoreCase );
+
+        public static void Console_Title( string title, bool writeLineIfUnsupportedOSPlatform = false )
+        {
+            if ( OperatingSystem.IsWindows() )
+            {
+                Console.Title = title;
+            }
+            else if ( writeLineIfUnsupportedOSPlatform )
+            {
+                Console.WriteLine( title );
+            }
+        }
+        public static string Console_Title() => OperatingSystem.IsWindows() ? Console.Title : null;
     }
 }

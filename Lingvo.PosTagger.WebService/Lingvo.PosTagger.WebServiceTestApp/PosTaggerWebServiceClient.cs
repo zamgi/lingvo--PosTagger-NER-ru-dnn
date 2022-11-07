@@ -31,7 +31,7 @@ namespace Lingvo.PosTagger.WebService
             baseUrl = baseUrl.TrimEnd( '/' );
             _RunUrl = new Uri( $"{baseUrl}/{WebApiConsts.PosTagger.RoutePrefix}/{WebApiConsts.PosTagger.Run}" );
 
-            _JsonSerializerOptions = new JsonSerializerOptions( JsonSerializerDefaults.General ) { IgnoreNullValues = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase, };
+            _JsonSerializerOptions = new JsonSerializerOptions( JsonSerializerDefaults.General ) { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull, PropertyNamingPolicy = JsonNamingPolicy.CamelCase, };
             _JsonSerializerOptions.Converters.Add( new JsonStringEnumConverter() );
         }
 

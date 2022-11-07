@@ -32,9 +32,11 @@ namespace Lingvo.PosTagger.ConsoleDemo
         /// </summary>
         private sealed class Config : Options
         {
+#pragma warning disable CS0649
             [Arg(nameof(Validate_Mode)     )] public ValidateModeEnum Validate_Mode;
             [Arg(nameof(ValidFilesRootPath))] public string           ValidFilesRootPath; // if ["Validate_Mode" == "one_model__by_many_valid_files"]
             [Arg(nameof(ModelsRootPath)    )] public string           ModelsRootPath;     // if ["Validate_Mode" == "all_moldels__by_one_valid_file"]
+#pragma warning restore CS0649
         }
 
         private static void Main( string[] args )
@@ -50,15 +52,15 @@ namespace Lingvo.PosTagger.ConsoleDemo
                     switch ( opts.Validate_Mode )
                     {
                         case ValidateModeEnum.one_model__by_many_valid_files:
-                            validate_one_model__by_many_valid_files( opts, opts.ValidFilesRootPath ); // @"..\..\..\..\[package's]\Lingvo.PosTagger_and_NER\RU\valid\" );
+                            Validate_one_model__by_many_valid_files( opts, opts.ValidFilesRootPath ); // @"..\..\..\..\[package's]\Lingvo.PosTagger_and_NER\RU\valid\" );
                             break;
 
                         case ValidateModeEnum.all_moldels__by_one_valid_file:
-                            validate_all_moldels__by_one_valid_file( opts, opts.ModelsRootPath ); // @"..\[resources]\models\ner\" );
+                            Validate_all_moldels__by_one_valid_file( opts, opts.ModelsRootPath ); // @"..\[resources]\models\ner\" );
                             break;
 
                         default: 
-                            validate( opts ); 
+                            Validate( opts ); 
                             break;
                     }
                 }
@@ -73,7 +75,7 @@ namespace Lingvo.PosTagger.ConsoleDemo
             }
         }
 
-        private static void validate( Options opts )
+        private static void Validate( Options opts )
         {
             var vr = Validator.Run_Validate( opts );
 
@@ -90,7 +92,7 @@ namespace Lingvo.PosTagger.ConsoleDemo
 
             GC_Collect();
         }
-        private static void validate_one_model__by_many_valid_files( Options opts, string validFilesRootPath )
+        private static void Validate_one_model__by_many_valid_files( Options opts, string validFilesRootPath )
         {
             using var cts = Console_CancelKeyPress_Breaker.Create( cancelMessage: null );
 
@@ -128,7 +130,7 @@ namespace Lingvo.PosTagger.ConsoleDemo
                 GC_Collect();
             }
         }
-        private static void validate_all_moldels__by_one_valid_file( Options opts, string modelsRootPath )
+        private static void Validate_all_moldels__by_one_valid_file( Options opts, string modelsRootPath )
         {
             using var cts = Console_CancelKeyPress_Breaker.Create( cancelMessage: null );
 
@@ -153,7 +155,7 @@ namespace Lingvo.PosTagger.ConsoleDemo
             }
         }
 
-        private static void test_predict_1( Options opts )
+        private static void Test_predict_1( Options opts )
         {
             var tokenizerConfig = new TokenizerConfig( opts.SentSplitterResourcesXmlFilename, opts.UrlDetectorResourcesXmlFilename );
             using var tokenizer = new Tokenizer( tokenizerConfig, replaceNumsOnPlaceholder: true );

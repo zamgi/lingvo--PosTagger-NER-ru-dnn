@@ -94,6 +94,15 @@ namespace Lingvo.PosTagger.Utils
                 d.Add( k, t );
             }
         }
+
+        [M(O.AggressiveInlining)] public static void Console_Title( string title )
+        {
+            if ( OperatingSystem.IsWindows() )
+            {
+                Console.Title = title;
+            }
+        }
+        [M(O.AggressiveInlining)] public static string Console_Title() => OperatingSystem.IsWindows() ? Console.Title : null;
     }
 
     /// <summary>

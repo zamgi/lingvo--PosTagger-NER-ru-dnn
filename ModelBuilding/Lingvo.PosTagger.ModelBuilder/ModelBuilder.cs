@@ -66,7 +66,7 @@ namespace Lingvo.PosTagger.ModelBuilder
             using var ofcw = new OptionsFileChangingWatcher( initOpts, optsFileName );
 
             var n = 1;
-            ofcw.OnOptionsAllowedChanging += (in OptionsAllowedChanging opts) => Console.Title = $"[OptionsFileChangingWatcher: {++n}]";
+            ofcw.OnOptionsAllowedChanging += (in OptionsAllowedChanging opts) => Misc.Console_Title( $"[OptionsFileChangingWatcher: {++n}]" );
 
             Console.ReadLine();
         }
