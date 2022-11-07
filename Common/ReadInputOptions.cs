@@ -57,16 +57,17 @@ namespace Lingvo.PosTagger
 
             processOptsAction?.Invoke( opts );
 
-            var jss = new JsonSerializerSettings()
-            {
-                NullValueHandling = NullValueHandling.Ignore,
-                Converters        = new[] { new StringEnumConverter() },
-            };
-            Logger.WriteLine( $"Configs: {JsonConvert.SerializeObject( opts, Formatting.Indented, jss )}" );
+            Logger.WriteLine( $"Configs: {JsonConvert.SerializeObject( opts, Formatting.Indented, CreateJsonSerializerSettings() )}" );
 
             return (opts, optsFileName);
             #endregion
         }
+
+        private static JsonSerializerSettings CreateJsonSerializerSettings() => new JsonSerializerSettings()
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            Converters        = new[] { new StringEnumConverter() },
+        };
     }
 }
 

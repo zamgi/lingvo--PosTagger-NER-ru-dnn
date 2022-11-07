@@ -1,0 +1,8 @@
+/ner/*
+/pos_tagger/*
+
+# !/pos_tagger/pos_tagger_ru__em256__(mel=4)__e6xm8__\[custom\].s2s
+# !/pos_tagger/pos_tagger_ru__em256__(mel=4)__e6xm8__\[nerus_lenta.conllu\].s2s
+
+# !/ner/ner_ru__(0.5M)__em256__e6xm8.s2s
+# !/ner/ner_ru__(1.0M)__em128__e6xm8.s2s

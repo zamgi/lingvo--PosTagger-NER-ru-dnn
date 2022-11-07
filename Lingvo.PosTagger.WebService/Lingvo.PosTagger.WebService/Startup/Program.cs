@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Hosting;
@@ -82,15 +80,6 @@ namespace Lingvo.PosTagger.WebService
             var logger                  = default(ILogger);
             try
             {                
-                #region comm.
-//#if DEBUG
-                //if ( !Debugger.IsAttached )
-                //{
-                //    Debugger.Launch();
-                //} 
-//#endif 
-                #endregion
-                Encoding.RegisterProvider( CodePagesEncodingProvider.Instance );
                 //-------------------------------------------------------------------------//
                 var saved_CurrentDirectory = Environment.CurrentDirectory;
                     var opts = ReadInputOptions( args, DEFAULT_CONCURRENT_FACTORY_INSTANCE_COUNT );
@@ -99,7 +88,7 @@ namespace Lingvo.PosTagger.WebService
                     var instanceCount = opts.CONCURRENT_FACTORY_INSTANCE_COUNT.GetValueOrDefault( DEFAULT_CONCURRENT_FACTORY_INSTANCE_COUNT );
                     var slByType      = CreateModelInfoConfigs( opts );
 
-                    var concurrentFactory = new ConcurrentFactory( slByType, opts, instanceCount );
+                    using var concurrentFactory = new ConcurrentFactory( slByType, opts, instanceCount );
                     Console.WriteLine( $"load model elapsed: {sw.StopElapsed()}\r\n" );
                 Environment.CurrentDirectory = saved_CurrentDirectory;
                 //---------------------------------------------------------------//
@@ -111,7 +100,7 @@ namespace Lingvo.PosTagger.WebService
                                .Build();
                 hostApplicationLifetime = host.Services.GetService< IHostApplicationLifetime >();
                 logger                  = host.Services.GetService< ILoggerFactory >()?.CreateLogger( SERVICE_NAME );
-                await host.RunAsync();
+                await host.RunAsync().CAX();
             }
             catch ( OperationCanceledException ex ) when ((hostApplicationLifetime?.ApplicationStopping.IsCancellationRequested).GetValueOrDefault())
             {

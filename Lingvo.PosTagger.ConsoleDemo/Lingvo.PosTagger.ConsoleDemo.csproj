@@ -4,8 +4,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>    
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
-    <LangVersion>latest</LangVersion>
-    <OutputType>Exe</OutputType>
+    <LangVersion>latest</LangVersion>    
   </PropertyGroup>
 
   <PropertyGroup>
@@ -15,7 +14,8 @@
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
   </PropertyGroup>
 
-  <PropertyGroup>    
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>    
     <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\</OutputPath>
@@ -31,7 +31,7 @@
   <ItemGroup>
     <Compile Include="..\Common\ReadInputOptions.cs" Link="ReadInputOptions.cs" />
   </ItemGroup>
- 
+
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>

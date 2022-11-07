@@ -4,8 +4,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
-    <LangVersion>latest</LangVersion>
-    <OutputType>Exe</OutputType>
+    <LangVersion>latest</LangVersion>    
   </PropertyGroup>
 
   <PropertyGroup>
@@ -15,6 +14,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutputPath>bin\</OutputPath>
   </PropertyGroup>

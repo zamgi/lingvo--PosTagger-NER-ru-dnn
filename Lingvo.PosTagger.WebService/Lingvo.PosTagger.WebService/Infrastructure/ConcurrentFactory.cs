@@ -223,10 +223,8 @@ namespace Lingvo.PosTagger.WebService
             }
         }
         
-        
         public IEnumerable< string > GetModelInfoKeys( string regimenModelType ) => regimenModelType.IsNullOrEmpty() ? _SLByType.Keys 
-                                                                            : _SLByType.Where( p => string.Compare( p.Value.RegimenModelType, regimenModelType, true ) == 0 ).Select( p => p.Key );
-
+                                                                                                                     : _SLByType.Where( p => string.Compare( p.Value.RegimenModelType, regimenModelType, true ) == 0 ).Select( p => p.Key );
         public async Task LogToFile( string msg )
         {
             if ( _EnableLog )

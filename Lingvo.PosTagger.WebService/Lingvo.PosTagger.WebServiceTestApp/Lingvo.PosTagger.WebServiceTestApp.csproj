@@ -5,7 +5,6 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <LangVersion>latest</LangVersion>
-    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -16,6 +15,7 @@
   </PropertyGroup>  
   
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <OutputPath>bin\</OutputPath>
     <nullable>disable</nullable>
   </PropertyGroup>
@@ -31,9 +31,9 @@
     <Compile Include="..\Lingvo.PosTagger.WebService\Models\VM.cs" Link="Models\VM.cs" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup>    
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
   </ItemGroup>
 
 </Project>

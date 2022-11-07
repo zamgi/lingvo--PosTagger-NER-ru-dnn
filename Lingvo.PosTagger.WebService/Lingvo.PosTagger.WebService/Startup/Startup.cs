@@ -152,17 +152,16 @@ namespace Lingvo.PosTagger.WebService
 	        [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Auto)]
 	        private struct PROCESSENTRY32
 	        {
-		        private const int MAX_PATH = 260;
-		        internal uint dwSize;
-		        internal uint cntUsage;
-		        internal uint th32ProcessID;
+		        internal uint   dwSize;
+		        internal uint   cntUsage;
+		        internal uint   th32ProcessID;
 		        internal IntPtr th32DefaultHeapID;
-		        internal uint th32ModuleID;
-		        internal uint cntThreads;
-		        internal uint th32ParentProcessID;
-		        internal int pcPriClassBase;
-		        internal uint dwFlags;
-		        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+		        internal uint   th32ModuleID;
+		        internal uint   cntThreads;
+		        internal uint   th32ParentProcessID;
+		        internal int    pcPriClassBase;
+		        internal uint   dwFlags;
+		        [MarshalAs(UnmanagedType.ByValTStr, SizeConst=260)]
 		        internal string szExeFile;
 	        }
 
