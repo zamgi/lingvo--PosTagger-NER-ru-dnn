@@ -30,22 +30,22 @@ namespace Lingvo.PosTagger.WebService
         public void ConfigureServices( IServiceCollection services )
         {
             services.AddControllers();
-            services.AddCors( (options) =>
+            services.AddCors( opts =>
             {
                 var origins = _Configuration.GetSection( "CORS" ).Get< string[] >();
                 if ( origins != null )
                 {
-                    options.AddPolicy( CORS_DEFAULT, (policy) => policy.WithOrigins( origins ).AllowAnyHeader().AllowAnyMethod() );
+                    opts.AddPolicy( CORS_DEFAULT, policy => policy.WithOrigins( origins ).AllowAnyHeader().AllowAnyMethod() );
                 }
             });
 
-            services.Configure< IISServerOptions >( options => options.MaxRequestBodySize = int.MaxValue );
-            services.Configure< KestrelServerOptions >( options => options.Limits.MaxRequestBodySize = int.MaxValue );
-            services.Configure< FormOptions >( x =>
+            services.Configure< IISServerOptions >( opts => opts.MaxRequestBodySize = int.MaxValue );
+            services.Configure< KestrelServerOptions >( opts => opts.Limits.MaxRequestBodySize = int.MaxValue );
+            services.Configure< FormOptions >( opts =>
             {
-                x.ValueLengthLimit            = int.MaxValue;
-                x.MultipartBodyLengthLimit    = int.MaxValue; // if don't set default value is: 128 MB
-                x.MultipartHeadersLengthLimit = int.MaxValue;
+                opts.ValueLengthLimit            = int.MaxValue;
+                opts.MultipartBodyLengthLimit    = int.MaxValue; // if don't set default value is: 128 MB
+                opts.MultipartHeadersLengthLimit = int.MaxValue;
             });
         }
 
@@ -79,24 +79,20 @@ namespace Lingvo.PosTagger.WebService
             {
                 var server    = app.ApplicationServices.GetRequiredService< IServer >();
                 var addresses = server.Features?.Get< IServerAddressesFeature >()?.Addresses;
-                var address   = addresses?.FirstOrDefault();
+                var address   = addresses?.FirstOrDefault( a => a.StartsWith( "https:" ) ) ?? addresses?.FirstOrDefault();
                 
                 if ( address == null )
                 {
                     var config = app.ApplicationServices.GetService< IConfiguration >();
                     address = config.GetSection( "Kestrel:Endpoints:Https:Url" ).Value ??
                               config.GetSection( "Kestrel:Endpoints:Http:Url"  ).Value;
-                    if ( address != null )
-                    {
-                        address = address.Replace( "/*:", "/localhost:" );
-                    }
                 }
-
-                //System.Console.WriteLine( $"[ADDRESS: {address ?? "NULL"}]" );
 
                 if ( address != null )
                 {
-                    using ( Process.Start( new ProcessStartInfo( address /*"http://localhost:1234"*/ ) { UseShellExecute = true } ) ) { };
+                    address = address.Replace( "/*:", "/localhost:" );
+
+                    using ( Process.Start( new ProcessStartInfo( address.TrimEnd( '/' ) + '/' ) { UseShellExecute = true } ) ) { };
                 }                
             }
             #endregion
