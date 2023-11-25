@@ -22,7 +22,7 @@
   <ItemGroup>
     <PackageReference Include="ManagedCuda-11" Version="11.4.47" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
-    <PackageReference Include="protobuf-net" Version="3.2.26" />
+    <PackageReference Include="protobuf-net" Version="3.2.30" />
   </ItemGroup>
   
   <ItemGroup>

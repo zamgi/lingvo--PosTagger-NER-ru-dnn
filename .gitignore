@@ -47,8 +47,7 @@ Temporary Items
 .apdisk
 
 *.suo
-/.vs/*
-/Lingvo.PosTagger.WebService/.vs/*
+.vs
 /\[resources\]/models/others/*
 
 

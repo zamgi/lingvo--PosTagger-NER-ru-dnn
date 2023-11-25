@@ -92,7 +92,7 @@ namespace Lingvo.PosTagger.WebService
                 {
                     address = address.Replace( "/*:", "/localhost:" );
 
-                    using ( Process.Start( new ProcessStartInfo( address.TrimEnd( '/' ) + '/' ) { UseShellExecute = true } ) ) { };
+                    using ( Process.Start( new ProcessStartInfo( address ) { UseShellExecute = true } ) ) { };
                 }                
             }
             #endregion
