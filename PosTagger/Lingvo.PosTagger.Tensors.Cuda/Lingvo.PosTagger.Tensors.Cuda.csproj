@@ -20,9 +20,9 @@
   
   <ItemGroup>
     <PackageReference Include="ManagedCuda-11" Version="11.4.47" />
-    <PackageReference Include="ManagedCuda-CUBLAS" Version="12.2.52" />
-    <PackageReference Include="ManagedCuda-CURAND" Version="12.2.52" />
-    <PackageReference Include="ManagedCuda-NVRTC" Version="12.2.52" />
+    <PackageReference Include="ManagedCuda-CUBLAS" Version="12.4.57" />
+    <PackageReference Include="ManagedCuda-CURAND" Version="12.4.57" />
+    <PackageReference Include="ManagedCuda-NVRTC" Version="12.4.57" />
   </ItemGroup>
   
   <ItemGroup>
