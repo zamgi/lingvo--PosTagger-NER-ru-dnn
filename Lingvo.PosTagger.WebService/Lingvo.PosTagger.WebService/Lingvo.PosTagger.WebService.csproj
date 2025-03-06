@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
@@ -46,7 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.2" />
     <PackageReference Include="System.IO.MemoryMappedFiles" Version="4.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" /> 
   </ItemGroup>
