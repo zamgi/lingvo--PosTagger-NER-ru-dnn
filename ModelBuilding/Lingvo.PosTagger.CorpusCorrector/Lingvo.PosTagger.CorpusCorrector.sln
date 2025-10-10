@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lingvo.PosTagger.CorpusCorrector", "Lingvo.PosTagger.CorpusCorrector.csproj", "{B17925B5-A6B6-41D2-BD16-D9CF4D6A7907}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lingvo.PosTagger.Tokenizing", "..\PosTagger\Lingvo.PosTagger.Tokenizing\Lingvo.PosTagger.Tokenizing.csproj", "{4972B176-2B73-4795-A8E5-592517F50492}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lingvo.PosTagger.Tokenizing", "..\..\PosTagger\Lingvo.PosTagger.Tokenizing\Lingvo.PosTagger.Tokenizing.csproj", "{4972B176-2B73-4795-A8E5-592517F50492}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
