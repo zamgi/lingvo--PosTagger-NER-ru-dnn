@@ -46,9 +46,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.9" />
     <PackageReference Include="System.IO.MemoryMappedFiles" Version="4.3.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" /> 
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" /> 
   </ItemGroup>
 
   <ItemGroup>
