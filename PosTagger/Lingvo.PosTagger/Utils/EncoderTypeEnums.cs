@@ -1,13 +1,18 @@
-﻿namespace Lingvo.PosTagger
+﻿using ProtoBuf;
+
+namespace Lingvo.PosTagger
 {
     /// <summary>
     /// 
     /// </summary>
+    [ProtoContract(SkipConstructor=true)]
     public enum EncoderTypeEnums
     {
         BiLSTM,
         Transformer
     }
+
+    [ProtoContract(SkipConstructor=true)]
     /// <summary>
     /// NOT USED
     /// </summary>

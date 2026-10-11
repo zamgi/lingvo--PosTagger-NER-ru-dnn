@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>    
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
@@ -20,9 +20,9 @@
   
   <ItemGroup>
     <PackageReference Include="ManagedCuda-11" Version="11.4.47" />
-    <PackageReference Include="ManagedCuda-CUBLAS" Version="12.8.60" />
-    <PackageReference Include="ManagedCuda-CURAND" Version="12.8.60" />
-    <PackageReference Include="ManagedCuda-NVRTC" Version="12.8.60" />
+    <PackageReference Include="ManagedCuda-CUBLAS" Version="13.0.64" />
+    <PackageReference Include="ManagedCuda-CURAND" Version="13.0.64" />
+    <PackageReference Include="ManagedCuda-NVRTC" Version="13.0.64" />
   </ItemGroup>
   
   <ItemGroup>

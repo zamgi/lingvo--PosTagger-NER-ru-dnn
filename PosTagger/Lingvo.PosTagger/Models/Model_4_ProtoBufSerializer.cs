@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-
-using Lingvo.PosTagger.Utils;
 
 using ProtoBuf;
 
@@ -10,9 +7,7 @@ namespace Lingvo.PosTagger.Models
     /// <summary>
     /// 
     /// </summary>
-    [ProtoContract(SkipConstructor=true), ProtoInclude(100, typeof(Vocab_4_ProtoBufSerializer)),
-                                          ProtoInclude(101, typeof(DecoderTypeEnums)),
-                                          ProtoInclude(101, typeof(EncoderTypeEnums))]
+    [ProtoContract(SkipConstructor=true)]
     public sealed class Model_4_ProtoBufSerializer
     {
         public Model_4_ProtoBufSerializer() { }
